@@ -79,6 +79,10 @@ img {
   color: var(--text-color-alt);
 }
 
+code {
+  background: var(--bg-content);
+}
+
 .layout {
   @include max-width;
   padding-bottom: $margin * 10;
