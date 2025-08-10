@@ -18,6 +18,11 @@ export default class poll_listings_summary {
     try {
       const response = await fetch(url);
 
+      if (response?.status === 504) {
+        this.show_notice_error();
+        return;
+      }
+
       if (response?.status !== 200) throw new Error;
 
       const html_content = await response.text();
@@ -36,5 +41,14 @@ export default class poll_listings_summary {
 
     element.innerText = element.dataset.finalText!;
     element.classList.add("notice--success");
+  }
+
+  private show_notice_error(): void {
+    const element: HTMLElement | null = document.querySelector("[data-role~='poll_listings_summary_notice']");
+
+    if (!element) return;
+
+    element.innerText = "Sorry, het ziet er naar uit dat er iets fout is gegaan. Probeer het later nog eens.";
+    element.classList.add("notice--error");
   }
 }

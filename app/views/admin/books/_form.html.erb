@@ -61,6 +61,16 @@
     <%= form.text_field :published_date_text, class: "form-input" %>
   </div>
 
+  <div>
+    <%= form.label :last_scrape_started_at %>
+    <%= form.datetime_field :last_scrape_started_at, class: "form-input" %>
+  </div>
+
+  <div>
+    <%= form.label :last_scrape_finished_at %>
+    <%= form.datetime_field :last_scrape_finished_at, class: "form-input" %>
+  </div>
+
   <div class="mt-1">
     <%= form.submit "Submit", class: "button button--primary" %>
   </div>

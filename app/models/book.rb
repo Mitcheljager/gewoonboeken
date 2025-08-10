@@ -62,19 +62,29 @@ class Book < ApplicationRecord
   end
 
   def requires_scrape?
-    # Requires scrape if scrape is not ongoing
-    !is_scrape_ongoing? &&
-    # and a scrape has never been started, or the last scrape is past the threshold.
-    (last_scrape_started_at.blank? || (last_scrape_finished_at.present? && last_scrape_finished_at < 1.day.ago))
+    return true if last_scrape_started_at.nil?
+    return true if is_scrape_frozen?
+    return false if is_scrape_ongoing?
+
+    # A scrape has never been started, or the last scrape is past the threshold.
+    last_scrape_finished_at.present? && last_scrape_finished_at < 1.day.ago
   end
 
   def is_scrape_ongoing?
-    return false if last_scrape_started_at.blank?
+    return false if last_scrape_started_at.nil?
+    return false if is_scrape_frozen?
 
-    # Check if a scrape is ongoing either by checking if a start datetime exists without an end datetime,
-    (last_scrape_started_at.present? && last_scrape_finished_at.blank?) ||
-    # or by checking if the finished datetime is before the end datetime, indicating that it has not yet finished.
-    (last_scrape_finished_at.present? && (last_scrape_finished_at < last_scrape_started_at))
+    # Check if a start datetime exists without an end datetime.
+    return true if last_scrape_started_at.present? && last_scrape_finished_at.nil?
+
+    # Finally check if the finished datetime is before the end datetime, indicating that it has not yet finished.
+    last_scrape_finished_at < last_scrape_started_at
+  end
+
+  # If the start_at date is more than 10 minutes ago and the finished_at date has not yet been updated, the run probably
+  # froze and we should re-run it to prevent it from getting stuck eternally.
+  def is_scrape_frozen?
+    last_scrape_started_at < 10.minutes.ago && (last_scrape_finished_at.nil? || last_scrape_finished_at < last_scrape_started_at)
   end
 
   def should_show_scrape_message?

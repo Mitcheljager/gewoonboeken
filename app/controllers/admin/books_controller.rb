@@ -50,6 +50,7 @@ class Admin::BooksController < Admin::BaseController
       :title, :subtitle, :description,
       :format, :condition, :language,
       :isbn, :number_of_pages, :published_date_text,
+      :last_scrape_started_at, :last_scrape_finished_at,
       author_ids: [], genre_ids: []
     ])
   end

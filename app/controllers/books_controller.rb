@@ -25,6 +25,7 @@ class BooksController < ApplicationController
   end
 
   def listings_summary_partial
+    return head :gateway_timeout if @book.last_scrape_started_at < 90.seconds.ago
     return head :no_content if @book.requires_scrape? || @book.is_scrape_ongoing?
 
     render partial: "book_listings_summary"
