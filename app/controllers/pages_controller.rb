@@ -11,4 +11,7 @@ class PagesController < ApplicationController
 
   def privacy
   end
+
+  def affiliate
+  end
 end

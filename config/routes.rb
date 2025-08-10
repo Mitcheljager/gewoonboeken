@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   # Pages
   get "over-ons", to: "pages#about", as: :about
   get "privacy", to: "pages#privacy", as: :privacy
+  get "affiliate", to: "pages#affiliate", as: :affiliate
 
   namespace :admin do
     get "/", to: "base#index", as: :root
