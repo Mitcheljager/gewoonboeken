@@ -1,6 +1,8 @@
 <div id="<%= dom_id source %>">
   <%= image_tag rails_public_blob_url(source.logo.variant(:medium).processed) if source.logo.attached? %>
 
+  <%= tag.strong "Disabled", class: "color-red" if source.disabled? %>
+
   <p>
     <strong>Name:</strong>
     <%= source.name %>

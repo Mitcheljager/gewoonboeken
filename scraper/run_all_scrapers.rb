@@ -175,8 +175,14 @@ def consolidate_published_date_text(book)
   end
 end
 
+# If any sources are given, return true if current sources is given.
+# Otherwise check if source is disabled during every run.
+# We check it on each run so that we can disable source while a run is ongoing.
 def is_in_run?(sources_to_run, name)
-  sources_to_run.blank? || sources_to_run.include?(name)
+  return sources_to_run.include?(name) if sources_to_run.present?
+
+  source = Source.find_by_name!(name)
+  !source.disabled?
 end
 
 start_time = DateTime.now

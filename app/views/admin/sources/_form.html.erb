@@ -51,6 +51,11 @@
     <%= form.number_field :shipping_cost_free_from_quantity, class: "form-input", step: "1", min: 0 %>
   </div>
 
+  <%= form.label :disabled, class: "checkbox-group" do %>
+    <%= form.check_box :disabled %>
+    Disabled
+  <% end %>
+
   <div class="mt-1">
     <%= form.submit "Submit", class: "button button--primary" %>
   </div>
