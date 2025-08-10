@@ -9,7 +9,8 @@ def scrape_booknext(isbn)
   # Book page is found, but not currently available
   return { url:, available: false } if document.at_css("h3")&.text&.include?("Helaas")
 
-  price = document.at_css(".bm-detail-buy-item .price")&.text&.tr("€", "")&.gsub(/[[:space:]]/, '')&.strip
+  # .xpath here means only the direct textnode is used. The price might otherwise contain a "x% korting" link.
+  price = document.at_css(".bm-detail-buy-item .price")&.xpath('text()')&.text&.tr("€", "")&.gsub(/[[:space:]]/, '')&.strip
   # Used items use a form, new items use a button with the text "Kopen"
   available = document.at_css(".bm-detail-buy-item form").present? || document.at_css(".bm-detail-buy-item .btn.btn-primary")&.text&.include?("Kopen")
   # Compare the full text, as used items may include "Als nieuw"
