@@ -24,6 +24,5 @@
 
   <p class="mt-4 mb-0 font-small color-alt"><em>Van sommige van de bovenstaande links verdienen wij misschien een commissie. <%= link_to "Meer weten?", affiliate_path %></em></p>
 <% elsif !@book.should_show_scrape_message? %>
-  <%# Don't show empty text while scrape is ongoing to avoid confusion %>
   <p class="mt-0 mb-1"><em>We hebben ons best gedaan, maar we konden het helaas nergens vinden. Misschien over een tijdje opnieuw proberen? Je weet maar nooit!</em></p>
 <% end %>
