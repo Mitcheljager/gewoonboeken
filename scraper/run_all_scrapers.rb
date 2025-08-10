@@ -197,7 +197,9 @@ else
     puts "Running scrapers for \e[35m\"#{book.title}\"\e[0m | \e[4m#{book.isbn}\e[0m | \e[44m #{index + 1} out of #{books.size} \e[0m"
     puts "-----------------------------------------------------"
 
-    run_all_scrapers(book.isbn, sources_to_run)
+    ActiveRecord::Base.connection_pool.with_connection do
+      run_all_scrapers(book.isbn, sources_to_run)
+    end
 
     # Run garbage collection after every 10 books to clear up memory from each run
     if index % 10 == 0
