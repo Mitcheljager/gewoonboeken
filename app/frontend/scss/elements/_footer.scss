@@ -1,5 +1,8 @@
+@use "sass:map";
 @use "../variables" as *;
 @use "../mixins" as *;
+
+$gap: $margin * 4;
 
 .footer {
   margin-top: $margin * 8;
@@ -12,17 +15,20 @@
 
 .footer__content {
   @include max-width;
-  display: flex;
-  gap: $margin * 4;
   padding-top: $margin * 4;
   padding-bottom: $margin * 4;
+
+  @include breakpoint(desktop) {
+    display: flex;
+    gap: $gap;
+  }
 }
 
 .footer__image {
   display: none;
-  margin-top: max($margin * -16, -15vw);
+  margin-top: max($margin * -10, -10vw);
   width: 100%;
-  max-width: min(350px, 30vw);
+  max-width: calc((map.get($breakpoints, max) * 0.25) - $gap);
 
   @include breakpoint(desktop) {
     display: block;
@@ -35,10 +41,16 @@
 }
 
 .footer__navigation {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  max-width: 40rem;
-  gap: $margin * 4;
+  display: flex;
+  flex-direction: column;
+  gap: $margin * 2;
+
+  @include breakpoint(tiny) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $gap;
+    max-width: map.get($breakpoints, max) * 0.5;
+  }
 }
 
 .footer__column {
