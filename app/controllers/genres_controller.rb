@@ -3,12 +3,12 @@ class GenresController < ApplicationController
 
   def show
     @hot_books = @genre.books.full_join.includes(:authors, :listings).order(hotness: :desc).limit(8)
-    @subgenres = @genre.subgenres
+    @subgenres = @genre.subgenres.order(books_count: :desc).limit(4)
   end
 
   private
 
   def set_genre
-    @genre = Genre.includes(:books).find_by_slug!(params.expect(:slug))
+    @genre = Genre.find_by_slug!(params.expect(:slug))
   end
 end
