@@ -12,7 +12,7 @@
     </div>
   </details>
 
-  <% if @book.listings_with_price.where(condition: :damaged).any? %>
+  <% if @book.listings_with_price.select { |l| l.condition == "damaged" }.any? %>
     <details class="faq__item">
       <summary class="faq__question">
         Wat betekend het als het boek staat aangegeven als beschadigd?

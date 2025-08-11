@@ -42,19 +42,23 @@ class Book < ApplicationRecord
   end
 
   def listings_with_price
-    listings.includes(:source).where.not(price: 0).where(available: true)
+    if listings.loaded?
+      listings.select { |l| l.price.present? && l.price != 0 && l.available? }
+    else
+      listings.includes(:source).where.not(price: 0).where(available: true)
+    end
   end
 
   def listings_with_price_sorted
-    listings_with_price.to_a.sort_by { |listing| [listing.price, listing.shipping_cost_actual, listing.source.name] }
+    listings_with_price.sort_by { |listing| [listing.price, listing.shipping_cost_actual, listing.source.name] }
   end
 
   def lowest_price
-    listings_with_price.pluck(:price).sort.first
+    listings_with_price.map(&:price).compact.min
   end
 
   def cheapest_listing
-    listings_with_price.sort_by(&:price).first
+    listings_with_price.min_by(&:price)
   end
 
   def authors_human_list
