@@ -37,7 +37,7 @@ class Book < ApplicationRecord
   end
 
   def self.full_join
-    self.includes(:authors, listings: :source, cover_image_attachment: :blob)
+    self.includes(:authors, listings: :source, cover_image_attachment: [:blob, { blob: :variant_records }])
         .references(:authors, :listings, :source)
   end
 
