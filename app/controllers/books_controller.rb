@@ -6,7 +6,7 @@ class BooksController < ApplicationController
   # after_action :request_cover, only: [:show]
 
   def index
-    @books = BookFilter.new(Book.full_join, filter_params).filter.page(params[:page])
+    @books = BookFilter.new(Book.overview_join, filter_params).filter.page(params[:page])
 
     @genres = Genre.includes(subgenres: { subgenres: { subgenres: :subgenres } }).where(parent_genre_id: nil)
   end

@@ -1,4 +1,8 @@
+<% price_large = price.to_s.split(".")[0] %>
+<% price_cents = price.to_s.split(".")[1] %>
+<% price_cents = price_cents + "0" if price_cents.size == 1 %>
+
 <span class="price">
-  €<%= listing.price_large %>,
-  <%= tag.span listing.price_cents, class: "price__cents" %>
+  €<%= price_large %>,
+  <%= tag.span price_cents, class: "price__cents" %>
 </span>

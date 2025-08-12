@@ -36,6 +36,11 @@ class Book < ApplicationRecord
     "#{title.parameterize}-#{isbn}"
   end
 
+  def self.overview_join
+    self.includes(:authors, cover_image_attachment: [:blob, { blob: :variant_records }])
+        .references(:authors)
+  end
+
   def self.full_join
     self.includes(:authors, listings: :source, cover_image_attachment: [:blob, { blob: :variant_records }])
         .references(:authors, :listings, :source)

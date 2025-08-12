@@ -34,7 +34,7 @@
 
         <div class="cards">
           <% cache ["genre-top-books", subgenre.id], expires_in: 4.hours do %>
-            <%= render collection: subgenre.books.full_join.limit(8), partial: "books/card", as: :book %>
+            <%= render collection: subgenre.books.overview_join.limit(8), partial: "books/card", as: :book %>
           <% end %>
         </div>
 

@@ -54,7 +54,7 @@
       <span class="item__price">
         <% if book.listings_with_price.any? %>
           Vanaf
-          <%= render "listings/price", listing: book.cheapest_listing %>
+          <%= render "listings/price", price: book.cheapest_listing %>
         <% else %>
           <em>Niet beschikbaar</em>
         <% end %>

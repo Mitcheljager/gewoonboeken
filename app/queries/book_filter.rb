@@ -30,8 +30,7 @@ class BookFilter
   def filter_by_availability
     return if params[:available].nil?
 
-    available = ActiveModel::Type::Boolean.new.cast(params[:available])
-    @books = books.joins(:listings).where(listings: { available: available }).where.not(listings: { price: 0 }).where.not(listings: { price: 0 })
+    @books = books.where.not(listings_available_count_cache: 0).where.not(listings_lowest_price_cache: 0)
   end
 
   def filter_by_year

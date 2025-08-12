@@ -9,6 +9,9 @@ class Listing < ApplicationRecord
   validates :currency, inclusion: { in: VALID_CURRENCIES, message: "%{value} is not a valid currency" }, allow_nil: true
   validates :condition, inclusion: { in: Listing.conditions.keys }
 
+  after_save :update_book_cache
+  after_destroy :update_book_cache
+
   def price_large
     price.to_s.split(".")[0]
   end
@@ -40,5 +43,11 @@ class Listing < ApplicationRecord
     return "Tweedehands" if used_condition?
     return "Licht beschadigd" if damaged_condition?
     "Onbekend"
+  end
+
+  private
+
+  def update_book_cache
+    book.update!(listings_lowest_price_cache: book.lowest_price, listings_available_count_cache: book.listings_with_price.size)
   end
 end

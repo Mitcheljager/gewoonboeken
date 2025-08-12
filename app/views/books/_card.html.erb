@@ -37,18 +37,16 @@
       </span>
 
       <span class="card__tray">
-        <% listings = book.listings_with_price.to_a %>
-
-        <% if listings.any? %>
+        <% if book.listings_available_count_cache > 0 %>
           <span class="card__note">
-            <em>Bij <%= listings.size %> verkoper<%= "s" if listings.many? %></em>
+            <em>Bij <%= book.listings_available_count_cache %> verkoper<%= "s" if book.listings_available_count_cache > 1 %></em>
           </span>
         <% end %>
 
         <span class="card__price">
-          <% if listings.any? %>
+          <% if book.listings_available_count_cache > 0 %>
             Vanaf
-            <%= render "listings/price", listing: book.cheapest_listing %>
+            <%= render "listings/price", price: book.listings_lowest_price_cache %>
           <% elsif book.last_scrape_finished_at.nil? %>
             <em>Onbekend</em>
           <% else %>

@@ -4,7 +4,7 @@
   <span class="listing__content">
     <span class="listing__name" id="listing-<%= listing.id %>"><%= listing.source.name %></span>
 
-    <%= render "listings/price", listing: listing %>
+    <%= render "listings/price", price: listing.price %>
 
     <span class="listing__condition">
       <%= listing.condition_label %>
