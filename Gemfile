@@ -42,10 +42,10 @@ gem "kaminari"
 gem "inline_svg"
 gem "aws-sdk-s3", require: false
 gem "turbo-rails"
+gem "dotenv-rails"
 
 # Jobs dashboard
 gem "mission_control-jobs"
-gem "propshaft"
 
 # Analytics
 gem "ahoy_matey"
