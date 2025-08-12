@@ -199,7 +199,6 @@ GEM
       reline (>= 0.4.2)
     jmespath (1.6.2)
     json (2.12.2)
-    kabal (1.3.0)
     kamal (2.7.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -492,7 +491,6 @@ DEPENDENCIES
   image_processing (~> 1.2)
   importmap-rails
   inline_svg
-  kabal
   kamal
   kaminari
   mini_magick (>= 4.9.5)
