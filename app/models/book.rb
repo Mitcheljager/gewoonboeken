@@ -97,6 +97,9 @@ class Book < ApplicationRecord
   end
 
   def should_show_scrape_message?
+    # !Temporary
+    return false
+
     (requires_scrape? || is_scrape_ongoing?) &&
     # Only show message if book has never been scraped or last scrape is more than 2 days ago.
     # A scrape might still happen if it's earlier (see requires_scrape?), but we won't show a message or update the page.
