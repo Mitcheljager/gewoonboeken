@@ -28,7 +28,6 @@ test:
 
 production:
   primary: &primary_production
-    adapter: postgresql
     url: <%= ENV["DATABASE_URL"] %>
 
   queue:
