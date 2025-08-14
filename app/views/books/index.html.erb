@@ -4,7 +4,7 @@
   <h1 class="heading mb-0">
     <% if any_filter_params? %>
       <% if filter_params[:query].present? %>
-        Resultaten voor "<span class="wavy-underline"><%= filter_params[:query] %></span>"
+        Resultaten voor "<%= filter_params[:query] %>"
       <% else %>
         <span class="wavy-underline">Op zoek</span> naar een boek
       <% end %>
