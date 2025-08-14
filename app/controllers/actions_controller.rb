@@ -60,7 +60,7 @@ class ActionsController < ApplicationController
     @book = Book.find_by_isbn!(params[:isbn])
 
     begin
-      output = `ruby #{Rails.root.join("scraper/ai/openai_keywords.rb")} #{@book.isbn}`
+      output = `ruby #{Rails.root.join("scraper/ai/openai_keywords.rb")} isbn=#{@book.isbn}`
       Rails.logger.info output
 
       redirect_to [:admin, @book], notice: "AI completed successfully", status: :see_other
