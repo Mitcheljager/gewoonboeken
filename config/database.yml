@@ -31,6 +31,6 @@ production:
     url: <%= ENV["DATABASE_URL"] %>
 
   queue:
-    <<: *primary_production
-    url: <%= ENV["QUEUE_DATABASE_URL"] %>
+    <<: *default
+    database: storage/production_queue.sqlite3
     migrations_paths: db/queue_migrate
