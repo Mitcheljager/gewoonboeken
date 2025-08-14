@@ -1,56 +1,80 @@
-require_relative "../get_document"
+require 'httparty'
+require 'base64'
 
 def scrape_bol(isbn)
-  listing = find_listing_for_isbn_and_source_name(isbn, "Bol.com")
+  token = get_bol_access_token()
 
-  url = listing&.url
+  product = get_bol_response(token, isbn, "?country-code=NL&include-offer=true&include-specifications=true&include-seller=true")
+  return { url: nil, available: false } if product.nil? || product["ean"].nil?
 
-  if listing&.url
-    puts "Running previously fetched url For Bol for: " + url
+  url = product["url"]
 
-    document = get_document(url)
-  else
-    puts "Running new url for Bol"
+  seller_info = get_bol_response(token, isbn, "/offers/best?country-code=NL&include-seller=true")
+  return { url:, available: false } if seller_info.nil?
 
-    # Bol.com doesn't have nice enough urls to visit them directly via slug + isbn.
-    # Instead, we search first and get first result
-    base_url = "https://www.bol.com"
-    document = get_document("#{base_url}/nl/nl/s/?searchtext=#{isbn}")
+  description = product["description"]
+  number_of_pages = get_bol_number_of_pages(product)
 
-    # Sometimes pages display with a consent modal over top. When this happens the entire page markup
-    # is completely different. Maybe some old version of their page that is shown behind the modal?
-    link_element = document.at_css(".grid .flex.w-full a")
-    link_element = document.at_css(".product-title") if link_element.blank?
+  price = product.dig("offer", "price")
+  price_includes_shipping = get_bol_book_language(product) == "nl" # All dutch books include shipping
+  available = price.present? && seller_info.dig("seller", "name") == "bol.com"
 
-    first_url = link_element&.attribute("href")&.value
+  { url:, available:, description:, number_of_pages:, price:, condition: :new, price_includes_shipping: }
+end
 
-    return { url: nil, available: false } if first_url.blank?
+def get_bol_access_token
+  auth = Base64.strict_encode64("#{ENV["BOL_CLIENT_ID"]}:#{ENV["BOL_CLIENT_SECRET"]}")
 
-    # Get document again for url that was fetched from search
-    url = base_url + first_url
-    document = get_document(url)
+  response = HTTParty.post(
+    "https://login.bol.com/token?grant_type=client_credentials",
+    headers: {
+      "Authorization" => "Basic #{auth}",
+      "Accept" => "application/json",
+      "Content-Length" => "0"
+    }
+  )
+
+  if response.code != 200
+    puts "Bol.com token request failed: #{response.code} - #{response.body}"
+    return
   end
 
-  # A link was found from search results, but for a different product entirely. Might be a fuzzy search match.
-  return { url: nil, available: false } if document.nil? || !document&.at_css(".product-small-specs")&.text&.include?(isbn)
+  response.parsed_response["access_token"]
+end
 
-  description = document.at_css("[data-test='description']")&.text&.strip
-  number_of_pages_label = document.at_css(".product-small-specs li:contains('pagina')")
-  number_of_pages = number_of_pages_label&.text&.gsub("pagina's", "")&.strip
+def get_bol_response(token, isbn, path)
+  response = HTTParty.get(
+    "https://api.bol.com/marketing/catalog/v1/products/#{isbn}#{path}",
+    headers: {
+      "Authorization" => "Bearer #{token}",
+      "Accept" => "application/json",
+      "Accept-Language" => "nl"
+    }
+  )
 
-  # Only return listing for books actually sold by Bol.com, partners are handled separately.
-  # Also skip books that are marked as "Niet leverbaar".
-  available = (document.at_css(".product-seller")&.text&.include?("Verkoop door bol") || document.at_css(".buy-block__usps")&.text&.include?("verstuurd door bol")) && !document.text.include?("Niet leverbaar")
+  return nil if response.code != 200
 
-  return { url:, available: false, description:, number_of_pages: } if !available
+  response.parsed_response
+end
 
-  # The price is shown in two separate elements with a pseudo element as the comma.
-  # We get both elements separately and merge them together. Whole prices are shown with a "-".
-  price_large = document.at_css(".price-block__price .promo-price").children.first.text.strip
-  price_cents = document.at_css(".price-block__price .promo-price__fraction").text.strip.gsub("-", "00")
-  price = "#{price_large}.#{price_cents}"
+def get_bol_book_language(product)
+  language = nil
 
-  price_includes_shipping = document.text.include?("Prijs inclusief verzendkosten")
+  groups = product["specificationGroups"] || []
+  content_group = groups.find { |g| g["title"] == "Inhoud" }
 
-  { url:, price:, description:, number_of_pages:, condition: :new, available:, price_includes_shipping: }
+  if content_group
+    language_specification = content_group["specifications"].find { |s| s["key"] == "Language" }
+    language = language_specification["values"].first if language_specification
+  end
+
+  language
+end
+
+def get_bol_number_of_pages(product)
+  product["specificationGroups"]&.find { |group|
+    group["title"] == "Inhoud"
+  }&.dig("specifications")&.find { |spec|
+    spec["name"] == "Aantal pagina's"
+  }&.dig("values")&.first
 end
