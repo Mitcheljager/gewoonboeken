@@ -6,10 +6,12 @@
   position: relative;
   display: inline-flex;
   width: 100%;
+  height: auto;
+  aspect-ratio: var(--aspect-ratio, $fallback-aspect-ratio);
+  border-radius: var(--cover-border-radius, 0);
   margin-top: 0;
   box-shadow: $shadow-huge;
   background: var(--background-color);
-  border-radius: var(--cover-border-radius, 0);
 
   &::before {
     @include pseudo-fill;
@@ -48,9 +50,8 @@
     position: relative;
     background: var(--background-color);
     width: 100%;
-    height: auto;
+    object-fit: contain;
     border-radius: var(--cover-border-radius, 0);
-    aspect-ratio: var(--aspect-ratio, $fallback-aspect-ratio);
     overflow: hidden;
   }
 }
