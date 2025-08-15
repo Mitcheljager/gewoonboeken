@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   get "privacy", to: "pages#privacy", as: :privacy
   get "affiliate", to: "pages#affiliate", as: :affiliate
 
+  get "sitemap", to: "sitemaps#sitemap"
+
   namespace :admin do
     get "/", to: "base#index", as: :root
 

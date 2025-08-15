@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <url>
+    <loc><%= root_url %></loc>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc><%= about_url %></loc>
+  </url>
+
+  <% @books.each do |book| %>
+    <url>
+      <loc><%= book_url(book) %></loc>
+      <lastmod><%= book.updated_at.iso8601 %></lastmod>
+    </url>
+  <% end %>
+
+  <% @genres.each do |genre| %>
+    <url>
+      <loc><%= genre_url(genre) %></loc>
+      <changefreq>daily</changefreq>
+    </url>
+  <% end %>
+</urlset>
