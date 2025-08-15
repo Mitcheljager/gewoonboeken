@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_12_004136) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_15_185835) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -126,8 +126,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_12_004136) do
     t.datetime "last_scrape_started_at"
     t.integer "hotness", default: 0, null: false
     t.datetime "cover_last_scraped_at"
-    t.float "listings_lowest_price_cache"
-    t.integer "listings_available_count_cache"
+    t.float "listings_lowest_price_cache", default: 0.0
+    t.integer "listings_available_count_cache", default: 0
     t.index ["hotness"], name: "index_books_on_hotness"
     t.index ["isbn"], name: "index_books_on_isbn", unique: true
   end
