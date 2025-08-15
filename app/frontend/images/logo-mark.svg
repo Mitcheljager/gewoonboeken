@@ -1,4 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="110" height="110" viewBox="0 0 110 110">
+  <title>GewoonBoeken.nl</title>
+
   <rect fill="currentColor" x="0.563" y="0.563" width="5.438" height="108.875" rx="2.722" ry="2.722"/>
   <path fill="currentColor" d="M2.722,103.431H106.153a2.722,2.722,0,0,1,0,5.444H2.722A2.722,2.722,0,0,1,2.722,103.431Z" transform="translate(0.563 0.563)"/>
   <path fill="currentColor" d="M14.888,0H34.106a4,4,0,0,1,4,4V93.988a4,4,0,0,1-4,4H14.888a4,4,0,0,1-4-4V4A4,4,0,0,1,14.888,0Z" transform="translate(0.563 0.563)"/>
