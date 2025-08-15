@@ -27,8 +27,9 @@ test:
   database: storage/test.sqlite3
 
 production:
-  primary: &primary_production
-    url: <%= ENV["DATABASE_URL"] %>
+  primary:
+    <<: *default
+    database: storage/production.sqlite3
 
   queue:
     <<: *default
