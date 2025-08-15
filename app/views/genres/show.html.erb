@@ -3,10 +3,10 @@
 <div class="layout">
   <h1 class="heading wavy-underline"><%= @genre.name %></h1>
 
-  <% if @subgenres.any? %>
+  <% if @genre_links.any? %>
     <nav class="tags mt-4">
       <% cache ["genre-tags", @genre.id] do %>
-        <% @subgenres.order(name: :asc).each do |genre| %>
+        <% @genre_links.order(name: :asc).each do |genre| %>
           <%= link_to genre.name, genre, class: "tag tag--large", data: { turbo_prefetch: false } if genre.books_count > 0 %>
         <% end %>
       <% end %>
