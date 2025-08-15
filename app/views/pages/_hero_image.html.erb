@@ -2,7 +2,7 @@
   <%= "data-" unless theme_light? %>src="<%= vite_asset_path("images/doodle-reader-light.png") %>"
   width="700"
   height="442"
-  alt="Illustratie van een lezende vrouw zittend op een stoel omringt door stapels aan boeken."
+  alt="Illustratie van een lezende vrouw zittend op een stoel."
   data-theme="light"
   class="light-only"
   fetchpriority="<%= theme_light? ? "high" : "auto" %>">
@@ -11,7 +11,7 @@
   <%= "data-" unless theme_dark? %>src="<%= vite_asset_path("images/doodle-reader-dark.png") %>"
   width="700"
   height="442"
-  alt="Illustratie van een slapende vrouw op een stoel met een open boek op haar bovenlichaam, omringt door stapels aan boeken."
+  alt="Illustratie van een slapende vrouw op een stoel met een open boek op haar bovenlichaam."
   data-theme="dark"
   class="dark-only"
   fetchpriority="<%= theme_dark? ? "high" : "auto" %>">
