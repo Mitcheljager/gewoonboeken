@@ -28,6 +28,16 @@
 }
 
 .pagination__item {
+  &--current {
+    background: transparent;
+    box-shadow: inset 0 0 0 2px currentColor;
+    cursor: default;
+
+    @include hover-stack {
+      background: transparent;
+    }
+  }
+
   &:not(.pagination__item--current) {
     display: none;
 
@@ -36,8 +46,5 @@
     }
   }
 
-  &--current {
-    background: transparent;
-    box-shadow: inset 0 0 0 2px currentColor;
-  }
+
 }
