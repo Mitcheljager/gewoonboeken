@@ -42,6 +42,9 @@ end
 
 # Used as a fallback if accessing a URL directly via an inferred path is not possible
 def get_search_document(source_url, isbn)
+  # Disabled for the time being, too expensive
+  return [nil, nil]
+
   query = "\"#{isbn}\" site:#{source_url}"
   url = "https://api.search.brave.com/res/v1/web/search"
 
