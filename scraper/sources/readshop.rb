@@ -18,5 +18,5 @@ def scrape_readshop(isbn, title)
   number_of_pages = number_of_pages_label&.text&.strip
   available = !document.text.include?("Tijdelijk niet voorradig") || !document.text.include?("Dit product is momenteel niet leverbaar.")
 
-  { url:, price:, description:, number_of_pages:, available:, condition: :new, last_search_api_request_at: }
+  { url:, price:, description:, number_of_pages:, available:, condition: :new }
 end
