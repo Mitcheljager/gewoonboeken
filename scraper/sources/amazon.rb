@@ -49,8 +49,9 @@ def scrape_amazon(isbn)
     description = document.css("#bookDescription_feature_div .a-expander-content").first&.text&.strip
     price_includes_shipping = document.css("#mir-layout-DELIVERY_BLOCK").first&.text&.include?("GRATIS bezorging")
     published_date_text = DateFormatter.format_published_date_text(document.css("#rpi-attribute-book_details-publication_date .rpi-attribute-value").first&.text&.strip)
+    available = price_text.present?
 
-    { url:, price:, description:, number_of_pages:, condition: :new, available: true, published_date_text:, price_includes_shipping: }
+    { url:, price:, description:, number_of_pages:, condition: :new, available:, published_date_text:, price_includes_shipping: }
   end
 end
 

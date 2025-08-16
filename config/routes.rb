@@ -50,6 +50,11 @@ Rails.application.routes.draw do
     resources :users
   end
 
+  namespace :api do
+    get "books/isbn_list", to: "books#isbn_list"
+    post "listings/update", to: "listings#update"
+  end
+
   direct :rails_public_blob do |blob|
     if ENV["CDN"].present?
       File.join(ENV["CDN"], blob.key)
