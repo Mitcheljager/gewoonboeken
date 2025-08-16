@@ -3,21 +3,11 @@ require_relative "../get_document"
 def scrape_bruna(isbn, title)
   listing = find_listing_for_isbn_and_source_name(isbn, "Bruna")
 
-  slug = title.parameterize
-  url = listing&.url || "https://bruna.nl/boeken/#{slug}-#{isbn}"
+  url = listing&.url || "https://bruna.nl/boeken/-#{isbn}"
 
   puts "Running Bruna for: " + url
 
   document = get_document(url)
-
-  # Document was not an actual page, instead it fell back to some overview page
-  # In this case we use a search engine to find the actual page, if it exists
-  if !document.text.include?("| Boek |")
-    return { url: nil, available: false } if listing&.last_search_api_request_at.present? && listing&.last_search_api_request_at > 4.weeks.ago
-
-    url, document = get_search_document("bruna.nl", isbn)
-    last_search_api_request_at = DateTime.now
-  end
 
   return { url: nil, available: false } if url.blank? || !url.include?("/boeken/") || document.blank?
 
