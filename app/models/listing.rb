@@ -1,5 +1,5 @@
 class Listing < ApplicationRecord
-  has_paper_trail
+  has_paper_trail only: [:price]
 
   belongs_to :book
   belongs_to :source
