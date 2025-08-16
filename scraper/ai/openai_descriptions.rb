@@ -37,7 +37,7 @@ def get_openai_description(book, client)
 
     puts "Summary: #{message}"
 
-    book.update(description: message, description_last_generated_at: DateTime.now)
+    book.update!(description: message, description_last_generated_at: DateTime.now)
   rescue => error
     puts "Errors in openai_descriptions.rb"
     puts error
