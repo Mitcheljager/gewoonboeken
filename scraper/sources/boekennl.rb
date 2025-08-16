@@ -1,4 +1,5 @@
 require_relative "../get_document"
+require_relative "../index_listing_url"
 require_relative "../helpers/date_formatter"
 
 def scrape_boekennl(isbn, title)
@@ -15,7 +16,7 @@ def scrape_boekennl(isbn, title)
   cleaned_title = filtered_words.join(" ")
 
   slug = cleaned_title.parameterize
-  url = listing&.url || "https://boeken.nl/boeken/#{isbn}/#{slug}"
+  url = listing&.url || find_indexed_listing_url("Boeken.nl", isbn) || "https://boeken.nl/boeken/#{isbn}/#{slug}"
 
   puts "Running Boeken.nl for: " + url
 

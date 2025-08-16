@@ -1,5 +1,6 @@
 require_relative "../get_book"
 require_relative "../get_document"
+require_relative "../index_listing_url"
 require_relative "../helpers/log_time"
 
 # This is a hash containing all collected ISBNs with a popularity score. Higher == better.
@@ -52,14 +53,20 @@ index = 0
 
 # Boeken.nl - 100 entries per page, 3 pages, starts at 0
 for page in 0..2 do
-  document = get_document("https://www.boeken.nl/boeken/top-100?page=#{page}&mefibs-form-view-options-bottom-keys=&mefibs-form-view-options-bottom-items_per_page=100&mefibs-form-view-options-bottom-mefibs_block_id=view_options_bottom")
+  base_url = "https://www.boeken.nl"
+  document = get_document("#{base_url}/boeken/top-100?page=#{page}&mefibs-form-view-options-bottom-keys=&mefibs-form-view-options-bottom-items_per_page=100&mefibs-form-view-options-bottom-mefibs_block_id=view_options_bottom")
+
+  next if document.nil?
+
   document.css(".views-row h3 a").each do |node|
     # The only place the isbn is present on these overview pages is in the URLs of each book
-    url = node.attribute("href").value
-    next if url.blank?
+    path = node.attribute("href").value
+    next if path.blank?
 
-    isbn = url.match(%r{/(\d{13})/})&.captures&.first
+    isbn = path.match(%r{/(\d{13})/})&.captures&.first
     next if isbn.blank?
+
+    index_listing_url("Boeken.nl", isbn, base_url + path)
 
     score = [200 - index, 1].max
     isbn_list[isbn] += score
