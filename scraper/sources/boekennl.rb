@@ -1,6 +1,6 @@
 require_relative "../get_document"
-require_relative "../index_listing_url"
 require_relative "../helpers/date_formatter"
+require_relative "../index/index_listing_url"
 
 def scrape_boekennl(isbn, title)
   listing = find_listing_for_isbn_and_source_name(isbn, "Boeken.nl")

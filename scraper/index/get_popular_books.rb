@@ -1,7 +1,7 @@
 require_relative "../get_book"
 require_relative "../get_document"
-require_relative "../index_listing_url"
 require_relative "../helpers/log_time"
+require_relative "../index/index_listing_url"
 
 # This is a hash containing all collected ISBNs with a popularity score. Higher == better.
 isbn_list = Hash.new(0)
