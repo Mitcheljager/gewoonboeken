@@ -10,8 +10,10 @@ base_url = arguments["base_url"]
 token = arguments["token"]
 sleep_timeout = arguments["sleep"] || 3
 source = arguments["source"]
+order = arguments["order"] || "hotness"
+order_direction = arguments["order_direction"] || "desc"
 
-isbn_list = HTTParty.get(base_url + "/api/books/isbn_list",
+isbn_list = HTTParty.get(base_url + "/api/books/isbn_list?order=#{ order }&order_direction=#{ order_direction }",
                          headers: { "Token": token })
 
 isbn_list.each_with_index do |isbn, index|
