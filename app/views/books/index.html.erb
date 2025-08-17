@@ -19,9 +19,14 @@
     </aside>
 
     <%= turbo_frame_tag "form_filter_content", data: { turbo_action: "replace", turbo_fade: true }, target: "_top" do %>
-      <section class="filter-columns__content cards">
-        <%= render collection: @books, partial: "books/card", as: :book %>
-      </section>
+      <% if @books.length > 0 %>
+        <section class="filter-columns__content cards">
+          <%= render collection: @books, partial: "books/card", as: :book %>
+        </section>
+      <% else %>
+        <h3>Sorry, we hebben goed gezocht maar we konden helaas niets vinden.</h3>
+        Wij zijn nog bezig met het toevoegen van meer boeken. Misschien volgende keer beter?</p>
+      <% end %>
 
       <nav class="filter-columns__pagination">
         <%= paginate @books, theme: :simple, window: 2 %>
