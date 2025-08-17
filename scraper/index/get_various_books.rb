@@ -8,7 +8,7 @@ GC.enable
 isbn_list = []
 start_time = DateTime.now
 
-# Bol.com - 30 entries per page, 100 pages, many subpaths
+# ! Bol.com - 30 entries per page, 100 pages, many subpaths
 subpaths = [
   "thrillers-en-spannende-boeken/2551",
   "detectives/40637",
@@ -54,7 +54,7 @@ subpaths.each do |subpath|
   GC.start
 end
 
-# Boeken.nl - 100 entries per page, 50 pages, starts at 0
+# ! Boeken.nl - 100 entries per page, 50 pages, starts at 0
 # Requests can be super slow, so timeout is extended
 for page in 0..50 do
   base_url = "https://www.boeken.nl"
@@ -80,6 +80,52 @@ for page in 0..50 do
   if page % 10 == 0
     puts "Garbage collection..."
     GC.start
+  end
+end
+
+# ! Donner.nl - 12 entries per page, several subpaths, 50 pages each
+subpaths = [
+  "fictie/",
+  "fictie/literatuur/",
+  "fictie/romantisch/",
+  "fictie/spanning-thrillers/",
+  "fictie/fantasy-sciencefiction/",
+  "non-fictie/",
+  "non-fictie/economie-management/",
+  "kunst-cultuur/",
+  "vrije-tijd/",
+  "vrije-tijd/koken/",
+  "vrije-tijd/natuur-tuin/"
+]
+
+subpaths.each do |subpath|
+  for page in 1..50 do
+    base_url = "https://www.donner.nl"
+    document = get_document("#{base_url}/boeken/#{subpath}?page=#{page}")
+
+    next if document.nil?
+
+    document.css(".search-result").each do |node|
+      # Overview pages might include a variety of formats, including ebooks, dvds, games, and more.
+      next unless node.text.include?("Paperback") || node.text.include?("Hardback") # They call it "hardback / gevonden" rather than "hardcover"
+
+      path = node.at_css("a")&.attribute("href")&.value
+      next if path.blank? # Not sure if it can be blank, but who knows
+
+      isbn = node.attribute("data-ean").value
+      next if isbn.blank? # Same here, maybe it can be blank, no clue
+
+      index_listing_url("Donner", isbn, base_url + path)
+
+      isbn_list << isbn
+    end
+
+    document = nil
+
+    if page % 10 == 0
+      puts "Garbage collection..."
+      GC.start
+    end
   end
 end
 

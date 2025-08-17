@@ -1,4 +1,5 @@
 require_relative "../get_document"
+require_relative "../index/index_listing_url"
 
 def scrape_donner(isbn)
   listing = find_listing_for_isbn_and_source_name(isbn, "Donner")
@@ -6,7 +7,7 @@ def scrape_donner(isbn)
   # The slug part of the url doesn't actually matter, all that matter is that it contains a - and ISBN.
   # It doesn't even redirect to the actual page, it will serve the page for the given url as long as it
   # contains the ISBN. Makes it nice and easy!
-  url = listing&.url || "https://www.donner.nl/producten/-#{isbn}"
+  url = listing&.url || find_indexed_listing_url("Donner", isbn) || "https://www.donner.nl/producten/-#{isbn}"
 
   puts "Running Donner for: " + url
 

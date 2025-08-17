@@ -9,7 +9,7 @@ isbn_list = Hash.new(0)
 start_time = DateTime.now
 index = 0
 
-# Bestseller60 - 60 entries
+# ! Bestseller60 - 60 entries
 document = get_document("https://www.debestseller60.nl/")
 document.css(".card__tags__tag").each do |node|
   # The selector above contains all sorts of tags, not just ISBNs
@@ -25,7 +25,7 @@ document.css(".card__tags__tag").each do |node|
   index += 1
 end
 
-# Bol.com - 30 entries per page, 10 pages
+# ! Bol.com - 30 entries per page, 10 pages
 
 index = 0
 
@@ -42,7 +42,7 @@ for page in 1..10 do
     match = node.to_s.match(/\b\d{13}\b/)
     next unless match.present?
 
-    score = [200 - (page * 30) - index * 3, 1].max
+    score = [200 - index * 3, 1].max
     isbn_list[match[0]] += score
 
     index += 1
@@ -51,7 +51,7 @@ end
 
 index = 0
 
-# Boeken.nl - 100 entries per page, 3 pages, starts at 0
+# ! Boeken.nl - 100 entries per page, 3 pages, starts at 0
 for page in 0..2 do
   base_url = "https://www.boeken.nl"
   document = get_document("#{base_url}/boeken/top-100?page=#{page}&mefibs-form-view-options-bottom-keys=&mefibs-form-view-options-bottom-items_per_page=100&mefibs-form-view-options-bottom-mefibs_block_id=view_options_bottom")
@@ -77,7 +77,7 @@ end
 
 index = 0
 
-# Bruna.nl - 100 entries
+# ! Bruna.nl - 100 entries
 document = get_document("https://www.bruna.nl/boeken-top-100")
 document.css(".ankeiler-wrapper [data-test-id='titleAndSubtitle'] a").each do |node|
   # The only place the isbn is present on these overview pages is in the URLs of each book
@@ -93,6 +93,36 @@ document.css(".ankeiler-wrapper [data-test-id='titleAndSubtitle'] a").each do |n
   isbn_list[isbn] += score
 
   index += 1
+end
+
+# ! Donner.nl - 12 entries per page, subpaths, 10 pages each
+subpaths = [
+  "fictie/",
+  "non-fictie/"
+]
+
+subpaths.each do |subpath|
+  index = 0
+
+  for page in 1..10 do
+    base_url = "https://www.donner.nl"
+    document = get_document("#{base_url}/boeken/#{subpath}?page=#{page}")
+
+    next if document.nil?
+
+    document.css(".search-result").each do |node|
+      # Overview pages might include a variety of formats, including ebooks, dvds, games, and more.
+      next unless node.text.include?("Paperback") || node.text.include?("Hardback") # They call it "hardback / gevonden" rather than "hardcover"
+
+      isbn = node.attribute("data-ean").value
+      next if isbn.blank?
+
+      score = [200 - (index * 2), 1].max
+      isbn_list[isbn] += score
+
+      index += 1
+    end
+  end
 end
 
 # An ISBN has previously attempted to be indexed but failed. It could have failed because there was no Goodreads
