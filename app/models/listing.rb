@@ -49,5 +49,6 @@ class Listing < ApplicationRecord
 
   def update_book_cache
     book.update!(listings_lowest_price_cache: book.lowest_price, listings_available_count_cache: book.listings_with_price.size)
+    book.touch
   end
 end
