@@ -1,1 +1,30 @@
-# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+User-agent: *
+Crawl-delay: 3
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: SemrushBot-SA
+Disallow: /
+
+User-agent: SemrushBot-SI
+Disallow: /
+
+User-agent: SemrushBot-SWA
+Disallow: /
+
+User-agent: SemrushBot-CT
+Disallow: /
+
+User-agent: SemrushBot-BM
+Disallow: /
+
+User-agent: Yandex
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: *
+Disallow: /*?*?*
+Disallow: /*query=*
