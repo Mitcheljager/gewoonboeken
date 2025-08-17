@@ -39,10 +39,10 @@ Rails.application.configure do
   file_logger   = ActiveSupport::Logger.new(Rails.root.join("log/production.log"), "daily")
   stdout_logger = ActiveSupport::Logger.new($stdout)
 
-  config.logger = ActiveSupport::BroadcastLogger.new([
+  config.logger = ActiveSupport::BroadcastLogger.new(
     ActiveSupport::TaggedLogging.new(file_logger),
     ActiveSupport::TaggedLogging.new(stdout_logger)
-  ])
+  )
 
   # Change to "debug" to log everything (including potentially personally-identifiable information!)
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
