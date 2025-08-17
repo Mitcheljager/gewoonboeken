@@ -28,10 +28,11 @@ isbn_list.each_with_index do |isbn, index|
                             headers: { "Token": token },
                             body: { source_name: source, isbn:, listing: { **result } })
 
-    puts "Response: #{response.code == 200 ? "\e[32m" : "\e[31m"}#{response.code}\e[0m"
+    puts "Available: #{result[:available] ? "\e[32m" : "\e[31m"}#{result[:available]}\e[0m"
+    puts "Response:  #{response.code == 200 ? "\e[32m" : "\e[31m"}#{response.code}\e[0m"
   rescue => error
     puts "\e[31m"
-    puts "#{source_name} failed for: #{isbn}"
+    puts "#{source} failed for: #{isbn}"
     puts "#{error.class}: #{error.message}"
     puts error.backtrace.join("\n")
     puts "\e[0m"
