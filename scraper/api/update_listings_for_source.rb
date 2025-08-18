@@ -12,7 +12,7 @@ start_time = DateTime.now
 arguments = ARGV.map { |a| a.split("=", 2) }.to_h
 base_url = arguments["base_url"]
 token = arguments["token"]
-sleep_timeout = arguments["sleep"] || 3
+sleep_timeout = arguments["sleep"]&.to_i || 3
 source = arguments["source"]
 order = arguments["order"] || "hotness"
 order_direction = arguments["order_direction"] || "desc"
@@ -38,7 +38,7 @@ isbn_list.each_with_index do |isbn, index|
     LogMessage.log_error_block(message: "#{source} failed for: #{isbn}", error:)
   end
 
-  sleep(sleep_timeout.to_i)
+  sleep(sleep_timeout)
 end
 
 LogTime.log_end_time(start_time)
