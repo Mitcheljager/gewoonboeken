@@ -1,0 +1,41 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.blocks {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $margin * 4;
+  max-width: 40rem;
+
+  @include breakpoint(large) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $margin * 8;
+    max-width: 100%;
+  }
+}
+
+.block {
+  position: relative;
+  padding: $margin * 2;
+  padding-left: $margin * 10;
+  border: 2px solid currentColor;
+  border-radius: $border-radius-large;
+  font-family: $font-stack-serif;
+
+  @include breakpoint(mobile) {
+    padding-left: $margin * 8;
+    font-size: $font-size-large;
+  }
+}
+
+.block__image {
+  position: absolute;
+  top: -1.5rem;
+  left: 0rem;
+  box-shadow: 0 0 0 1rem var(--bg-base);
+  background: var(--bg-base);
+
+  @include breakpoint(mobile) {
+    left: -1.5rem;
+  }
+}
