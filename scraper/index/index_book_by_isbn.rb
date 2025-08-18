@@ -1,4 +1,5 @@
 require_relative "../get_book"
+require_relative "../helpers/log_message"
 
 isbn = ARGV[0]
 
@@ -11,7 +12,5 @@ begin
   book = get_book(isbn, attach_image: true)
   puts "Successfully indexed book \"#{book.title}\" (#{book.isbn})"
 rescue => error
-  puts "Indexing of book #{isbn} was not successful"
-  puts error
-  puts error.backtrace.join("\n")
+  LogMessage.log_error_block(message: "Indexing of book #{isbn} was not successful", error:)
 end

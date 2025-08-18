@@ -1,6 +1,7 @@
 require_relative "../config/environment"
 require_relative "get_book"
 require_relative "helpers/log_time"
+require_relative "helpers/log_message"
 require_relative "sources/amazon"
 require_relative "sources/amazon_retourdeals"
 require_relative "sources/boekenbalie"
@@ -33,11 +34,7 @@ def run_scraper(source_name, sources_to_run, isbn, title)
     color = result[:available] ? "\e[32m" : "\e[31m"
     puts "Available on #{source_name}:#{color} #{result[:available]} \e[0m"
   rescue => error
-    puts "\e[31m"
-    puts "#{source_name} failed for: #{title} - #{isbn}"
-    puts "#{error.class}: #{error.message}"
-    puts error.backtrace.join("\n")
-    puts "\e[0m"
+    LogMessage.log_error_block(message: "#{source_name} failed for: #{title} - #{isbn}", error:)
 
     save_unsuccessful_result(source_name, isbn)
     update_listing_scraping_status(source_name, isbn, was_successful: false)

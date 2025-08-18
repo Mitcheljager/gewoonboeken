@@ -5,6 +5,7 @@ require_relative "../sources/amazon"
 require_relative "../sources/broese"
 require_relative "../sources/deslegte"
 require_relative "../helpers/log_time"
+require_relative "../helpers/log_message"
 
 start_time = DateTime.now
 
@@ -34,11 +35,7 @@ isbn_list.each_with_index do |isbn, index|
     puts "Available: #{result[:available] ? "\e[32m" : "\e[31m"}#{result[:available]}\e[0m"
     puts "Response:  #{response.code == 200 ? "\e[32m" : "\e[31m"}#{response.code}\e[0m"
   rescue => error
-    puts "\e[31m"
-    puts "#{source} failed for: #{isbn}"
-    puts "#{error.class}: #{error.message}"
-    puts error.backtrace.join("\n")
-    puts "\e[0m"
+    LogMessage.log_error_block(message: "#{source} failed for: #{isbn}", error:)
   end
 
   sleep(sleep_timeout.to_i)
