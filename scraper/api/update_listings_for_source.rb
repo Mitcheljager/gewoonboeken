@@ -4,6 +4,9 @@ require_relative "../get_book"
 require_relative "../sources/amazon"
 require_relative "../sources/broese"
 require_relative "../sources/deslegte"
+require_relative "../helpers/log_time"
+
+start_time = DateTime.now
 
 arguments = ARGV.map { |a| a.split("=", 2) }.to_h
 base_url = arguments["base_url"]
@@ -40,3 +43,5 @@ isbn_list.each_with_index do |isbn, index|
 
   sleep(sleep_timeout.to_i)
 end
+
+LogTime.log_end_time(start_time)
