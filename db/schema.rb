@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_16_165813) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_18_121432) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -212,6 +212,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_16_165813) do
     t.float "shipping_cost_free_from_price", default: 0.0
     t.integer "shipping_cost_free_from_quantity", default: 0
     t.boolean "disabled", default: false
+    t.string "affiliate_param_string"
     t.index ["slug"], name: "index_sources_on_slug", unique: true
   end
 

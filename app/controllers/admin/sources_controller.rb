@@ -46,7 +46,7 @@ class Admin::SourcesController < Admin::BaseController
 
   def source_params
     params.expect(source: [
-      :name, :slug, :base_url, :logo,
+      :name, :slug, :base_url, :affiliate_param_string, :logo,
       :shipping_cost, :shipping_cost_currency, :shipping_cost_free_from_price, :shipping_cost_free_from_quantity,
       :disabled
     ])
