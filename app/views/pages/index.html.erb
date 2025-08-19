@@ -89,7 +89,7 @@
     <nav class="tags tags--full-width">
       <% cache ["home-genre-tags"] do %>
         <% @genres.each do |genre| %>
-          <%= link_to genre.name, genre, class: "tag tag--large", data: { turbo_prefetch: false } if genre.books_count > 0 %>
+          <%= link_to genre.name, genre, class: "tag tag--large", data: { turbo_prefetch: false } %>
         <% end %>
       <% end %>
     </nav>
