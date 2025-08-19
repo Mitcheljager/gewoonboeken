@@ -22,7 +22,7 @@ def scrape_bol_partners(isbn)
   return { url: nil, available: false } if document.nil?
 
   item = document.at_css("#offers .media")
-  item = document.css("#offers.media")[1] if item&.text&.include?("Bol")
+  item = document.css("#offers .media")[1] if item&.text&.include?("Bol")
 
   return { url:, available: false } if item.nil?
 
