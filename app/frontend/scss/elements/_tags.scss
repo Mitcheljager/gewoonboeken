@@ -7,6 +7,10 @@
   gap: $margin;
   flex-wrap: wrap;
   max-width: map.get($breakpoints, max) * 0.5;
+
+  &--full-width {
+    max-width: 100%;
+  }
 }
 
 .tag {
