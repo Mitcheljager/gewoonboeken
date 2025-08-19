@@ -82,6 +82,15 @@ sources = [
     shipping_cost_free_from_quantity: 0
   },
   {
+    name: "Bol.com Partners",
+    slug: "bol-partners",
+    base_url: "https://www.bol.com",
+    shipping_cost: 0,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 0,
+    shipping_cost_free_from_quantity: 0
+  },
+  {
     name: "Paagman",
     slug: "paagman",
     base_url: "https://www.paagman.nl",

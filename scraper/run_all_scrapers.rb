@@ -8,6 +8,7 @@ require_relative "sources/boekenbalie"
 require_relative "sources/boekenkraam"
 require_relative "sources/boekennl"
 require_relative "sources/bol"
+require_relative "sources/bol_partners"
 require_relative "sources/booknext"
 require_relative "sources/broese"
 require_relative "sources/bruna"
@@ -61,6 +62,7 @@ def run_all_scrapers(isbn, sources_to_run)
     run_scraper("Boekenkraam", sources_to_run, isbn, title)             { scrape_boekenkraam(isbn) }
     run_scraper("Boeken.nl", sources_to_run, isbn, title)               { scrape_boekennl(isbn, title) }
     run_scraper("Bol.com", sources_to_run, isbn, title)                 { scrape_bol(isbn) }
+    run_scraper("Bol.com Partners", sources_to_run, isbn, title)        { scrape_bol_partners(isbn) }
     run_scraper("Booknext", sources_to_run, isbn, title)                { scrape_booknext(isbn) }
     run_scraper("Broese", sources_to_run, isbn, title)                  { scrape_broese(isbn) }
     run_scraper("Bruna", sources_to_run, isbn, title)                   { scrape_bruna(isbn, title) }
