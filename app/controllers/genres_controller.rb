@@ -4,7 +4,7 @@ class GenresController < ApplicationController
   def show
     @hot_books = @genre.books.overview_join.includes(:authors, :listings).order(hotness: :desc).limit(8)
     @subgenres = @genre.subgenres.order(books_count: :desc).limit(4)
-    @genre_links = @genre.subgenres.select(:name, :slug, :books_count)
+    @genre_links = @genre.subgenres.select(:name, :slug, :books_count).where.not(books_count: 0)
   end
 
   private
