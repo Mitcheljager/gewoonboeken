@@ -137,7 +137,7 @@ isbn_list.reject! { |isbn| SkippableISBN.exists?(isbn: isbn) }
 # Process all indexed ISBNs, skipping any that are invalid
 batch_size = 20
 total_index = 0
-isbn_list.each_slice(batch_size).with_index do |batch, batch_index|
+isbn_list.uniq.each_slice(batch_size).with_index do |batch, batch_index|
   puts "\e[45m Processing batch #{batch_index + 1} / #{(isbn_list.size / batch_size).ceil} \e[0m"
 
   batch.each do |isbn|

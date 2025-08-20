@@ -8,24 +8,26 @@ GC.enable
 isbn_list = []
 start_time = DateTime.now
 
-urls = [
-  "https://www.boeken.nl/schrijver/stephen-king?mefibs-form-view-options-bottom-title=&mefibs-form-view-options-bottom-field_format_tid_entityreference_filter%5B%5D=18&mefibs-form-view-options-bottom-field_format_tid_entityreference_filter%5B%5D=655&mefibs-form-view-options-bottom-nxte_complete_price%5Bmin%5D=&mefibs-form-view-options-bottom-nxte_complete_price%5Bmax%5D=&mefibs-form-view-options-bottom-sort_by=popularity&mefibs-form-view-options-bottom-items_per_page=100&mefibs-form-view-options-bottom-mefibs_block_id=view_options_bottom",
-  "https://www.boeken.nl/schrijver/karin-slaughter?mefibs-form-view-filters-title=&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=18&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=655&mefibs-form-view-filters-nxte_complete_price%5Bmin%5D=&mefibs-form-view-filters-nxte_complete_price%5Bmax%5D=&mefibs-form-view-filters-sort_by=popularity&mefibs-form-view-filters-items_per_page=100&mefibs-form-view-filters-mefibs_block_id=view_filters",
-  "https://www.boeken.nl/schrijver/jk-rowling?mefibs-form-view-filters-title=&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=18&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=655&mefibs-form-view-filters-nxte_complete_price%5Bmin%5D=&mefibs-form-view-filters-nxte_complete_price%5Bmax%5D=&mefibs-form-view-filters-sort_by=popularity&mefibs-form-view-filters-items_per_page=100&mefibs-form-view-filters-mefibs_block_id=view_filters",
-  "https://www.boeken.nl/schrijver/roald-dahl?mefibs-form-view-filters-title=&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=18&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=655&mefibs-form-view-filters-nxte_complete_price%5Bmin%5D=&mefibs-form-view-filters-nxte_complete_price%5Bmax%5D=&mefibs-form-view-filters-sort_by=popularity&mefibs-form-view-filters-items_per_page=100&mefibs-form-view-filters-mefibs_block_id=view_filters",
-  "https://www.boeken.nl/schrijver/haruki-murakami?mefibs-form-view-filters-title=&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=18&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=655&mefibs-form-view-filters-nxte_complete_price%5Bmin%5D=&mefibs-form-view-filters-nxte_complete_price%5Bmax%5D=&mefibs-form-view-filters-sort_by=popularity&mefibs-form-view-filters-items_per_page=100&mefibs-form-view-filters-mefibs_block_id=view_filters",
-  "https://www.boeken.nl/schrijver/jrr-tolkien?mefibs-form-view-filters-title=&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=18&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=655&mefibs-form-view-filters-nxte_complete_price%5Bmin%5D=&mefibs-form-view-filters-nxte_complete_price%5Bmax%5D=&mefibs-form-view-filters-sort_by=popularity&mefibs-form-view-filters-items_per_page=100&mefibs-form-view-filters-mefibs_block_id=view_filters",
-  "https://www.boeken.nl/schrijver/george-rr-martin?mefibs-form-view-filters-title=&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=18&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=655&mefibs-form-view-filters-nxte_complete_price%5Bmin%5D=&mefibs-form-view-filters-nxte_complete_price%5Bmax%5D=&mefibs-form-view-filters-sort_by=popularity&mefibs-form-view-filters-items_per_page=100&mefibs-form-view-filters-mefibs_block_id=view_filters",
-  "https://www.boeken.nl/schrijver/george-orwell?mefibs-form-view-filters-title=&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=18&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=655&mefibs-form-view-filters-nxte_complete_price%5Bmin%5D=&mefibs-form-view-filters-nxte_complete_price%5Bmax%5D=&mefibs-form-view-filters-sort_by=popularity&mefibs-form-view-filters-items_per_page=100&mefibs-form-view-filters-mefibs_block_id=view_filters",
-  "https://www.boeken.nl/schrijver/paul-van-loon?mefibs-form-view-filters-title=&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=18&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=655&mefibs-form-view-filters-nxte_complete_price%5Bmin%5D=&mefibs-form-view-filters-nxte_complete_price%5Bmax%5D=&mefibs-form-view-filters-sort_by=popularity&mefibs-form-view-filters-items_per_page=100&mefibs-form-view-filters-mefibs_block_id=view_filters",
-  "https://www.boeken.nl/schrijver/patrick-rothfuss?mefibs-form-view-filters-title=&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=18&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=655&mefibs-form-view-filters-nxte_complete_price%5Bmin%5D=&mefibs-form-view-filters-nxte_complete_price%5Bmax%5D=&mefibs-form-view-filters-sort_by=popularity&mefibs-form-view-filters-items_per_page=100&mefibs-form-view-filters-mefibs_block_id=view_filters",
-  "https://www.boeken.nl/schrijver/anya-niewierra?mefibs-form-view-filters-title=&mefibs-form-view-filters-field_format_tid_entityreference_filter[]=18&mefibs-form-view-filters-field_format_tid_entityreference_filter[]=655&mefibs-form-view-filters-nxte_complete_price[min]=&mefibs-form-view-filters-nxte_complete_price[max]=&mefibs-form-view-filters-sort_by=popularity&mefibs-form-view-filters-items_per_page=100&mefibs-form-view-filters-mefibs_block_id=view_filters"
+# ! Boeken.nl - Different pages for different authors, each with up to 100 results.
+slugs = [
+  "stephen-king",
+  "karin-slaughter",
+  "jk-rowling",
+  "roald-dahl",
+  "haruki-murakami",
+  "jrr-tolkien",
+  "george-rr-martin",
+  "george-orwell",
+  "paul-van-loon",
+  "patrick-rothfuss",
+  "agatha-christie",
+  "saskia-noort",
+  "anya-niewierra"
 ]
 
-# ! Boeken.nl - Different pages for different authors, each with up to 100 results.
-urls.each do |url|
+slugs.each do |slug|
   # Requests can be super slow, so timeout is extended
-  document = get_document(url, timeout: 10)
+  document = get_document("https://www.boeken.nl/schrijver/#{slug}?mefibs-form-view-filters-title=&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=18&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B%5D=655&mefibs-form-view-filters-nxte_complete_price%5Bmin%5D=&mefibs-form-view-filters-nxte_complete_price%5Bmax%5D=&mefibs-form-view-filters-sort_by=popularity&mefibs-form-view-filters-items_per_page=100&mefibs-form-view-filters-mefibs_block_id=view_filters", timeout: 10)
 
   next if document.nil?
 
@@ -45,6 +47,57 @@ urls.each do |url|
   document = nil
 end
 
+# ! Donner.nl - 12 entries per page 30 pages each
+
+# Slugs are close to that of boeken.nl, but not always the same
+slugs = [
+  "stephen-king",
+  "karin-slaughter",
+  "j-k-rowling",
+  "roald-dahl",
+  "haruki-murakami",
+  "j-r-r-tolkien",
+  "george-r-r-martin",
+  "george-orwell",
+  "paul-van-loon",
+  "patrick-rothfuss",
+  "agatha-christie",
+  "saskia-noort",
+  "anya-niewierra"
+]
+
+slugs.each do |slug|
+  for page in 1..30 do
+    base_url = "https://www.donner.nl"
+    document = get_document("#{base_url}/auteurs/#{slug}?page=#{page}")
+
+    next if document.nil?
+
+    document.css(".search-result").each do |node|
+      # Overview pages might include a variety of formats, including ebooks, dvds, games, and more.
+      next unless node.text.include?("Paperback") || node.text.include?("Hardback") # They call it "hardback / gevonden" rather than "hardcover"
+      next unless node.text.include?("Engels") || node.text.include?("Nederlands") # Donner offers books in many languages. We only care for Dutch and English.
+
+      path = node.at_css("a")&.attribute("href")&.value
+      next if path.blank? # Not sure if it can be blank, but who knows
+
+      isbn = node.attribute("data-ean").value
+      next if isbn.blank? # Same here, maybe it can be blank, no clue
+
+      index_listing_url("Donner", isbn, base_url + path)
+
+      isbn_list << isbn
+    end
+
+    document = nil
+
+    if page % 10 == 0
+      puts "Garbage collection..."
+      GC.start
+    end
+  end
+end
+
 GC.start
 
 # An ISBN has previously attempted to be indexed but failed. It could have failed because there was no Goodreads
@@ -52,7 +105,7 @@ GC.start
 isbn_list.reject! { |isbn| SkippableISBN.exists?(isbn: isbn) }
 
 # Process all indexed ISBNs, skipping any that are invalid
-isbn_list.each_with_index do |isbn, index|
+isbn_list.uniq.each_with_index do |isbn, index|
   puts "\e[44m #{index + 1} out of #{isbn_list.count} \e[0m"
 
   ActiveRecord::Base.connection_pool.with_connection do
