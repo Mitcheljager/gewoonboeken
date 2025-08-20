@@ -108,6 +108,7 @@ subpaths.each do |subpath|
     document.css(".search-result").each do |node|
       # Overview pages might include a variety of formats, including ebooks, dvds, games, and more.
       next unless node.text.include?("Paperback") || node.text.include?("Hardback") # They call it "hardback / gevonden" rather than "hardcover"
+      next unless node.text.include?("Engels") || node.text.include?("Nederlands") # Donner offers books in many languages. We only care for Dutch and English.
 
       path = node.at_css("a")&.attribute("href")&.value
       next if path.blank? # Not sure if it can be blank, but who knows

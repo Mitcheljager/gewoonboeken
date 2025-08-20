@@ -113,6 +113,7 @@ subpaths.each do |subpath|
     document.css(".search-result").each do |node|
       # Overview pages might include a variety of formats, including ebooks, dvds, games, and more.
       next unless node.text.include?("Paperback") || node.text.include?("Hardback") # They call it "hardback / gevonden" rather than "hardcover"
+      next unless node.text.include?("Engels") || node.text.include?("Nederlands") # Donner offers books in many languages. We only care for Dutch and English.
 
       isbn = node.attribute("data-ean").value
       next if isbn.blank?
