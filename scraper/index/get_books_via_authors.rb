@@ -47,7 +47,7 @@ slugs.each do |slug|
   document = nil
 end
 
-# ! Donner.nl - 12 entries per page 30 pages each
+# ! Donner.nl - 12 entries per page 20 pages each
 
 # Slugs are close to that of boeken.nl, but not always the same
 slugs = [
@@ -67,7 +67,7 @@ slugs = [
 ]
 
 slugs.each do |slug|
-  for page in 1..30 do
+  for page in 1..20 do
     base_url = "https://www.donner.nl"
     document = get_document("#{base_url}/auteurs/#{slug}?page=#{page}")
 
