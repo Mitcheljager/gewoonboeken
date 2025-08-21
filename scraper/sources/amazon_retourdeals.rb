@@ -9,8 +9,8 @@ def scrape_amazon_retourdeals(isbn)
   if url.blank?
     puts "No valid url was found on Amazon RetourDeals for #{isbn}"
 
-    { url: nil, available: false }
-  else
+    return { url: nil, available: false }
+  end
 
   puts "Using previous set url #{url}"
 
@@ -28,5 +28,4 @@ def scrape_amazon_retourdeals(isbn)
   price = document.css(".a-accordion-inner:contains('#{amazon_retourdeals_merchant_id}') form input[name*='amount']").first.get_attribute('value')
 
   { url:, price:, condition: :used, available: true }
-  end
 end
