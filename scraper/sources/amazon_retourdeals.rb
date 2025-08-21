@@ -15,7 +15,7 @@ def scrape_amazon_retourdeals(isbn)
 
   document = get_document(url)
 
-  return { url: nil, available: false } unless url.include?("/dp/")
+  return { url: nil, available: false } unless url.include?("/dp/") || document.nil?
 
   used_item_node = document.at_css("#usedAccordionRow")
   has_amazon_retour_deals = used_item_node&.text.include?("Amazon RetourDeals")
