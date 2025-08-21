@@ -2,7 +2,6 @@ require_relative "../get_document"
 
 def scrape_amazon_retourdeals(isbn)
   listing = find_listing_for_isbn_and_source_name(isbn, "Amazon") # Deliberately get Amazon rather than Amazon Retourdeals. If Amazon contain no listing, than retourdeals does not either
-  amazon_retourdeals_merchant_id = "A3C1D9TG1HJ66Y"
 
   url = listing&.url
 
@@ -18,14 +17,17 @@ def scrape_amazon_retourdeals(isbn)
 
   return { url: nil, available: false } unless url.include?("/dp/")
 
-  has_amazon_retour_deals = document.css("#merchant-info:contains('Amazon RetourDeals')")
+  used_item_node = document.at_css("#usedAccordionRow")
+  has_amazon_retour_deals = used_item_node&.text.include?("Amazon RetourDeals")
 
-  if has_amazon_retour_deals
+  if !has_amazon_retour_deals
     puts "Amazon page for \"#{isbn}\" does not contain RetourDeals offer"
     return { url: url, condition: :used, available: false }
   end
 
-  price = document.css(".a-accordion-inner:contains('#{amazon_retourdeals_merchant_id}') form input[name*='amount']").first.get_attribute('value')
+  price = used_item_node.at_css(".a-offscreen")&.text&.tr(",", ".")&.tr("€", "")&.strip
+
+  puts price
 
   { url:, price:, condition: :used, available: true }
 end
