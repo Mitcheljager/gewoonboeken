@@ -28,7 +28,5 @@ def scrape_amazon_retourdeals(isbn)
   price = used_item_node.at_css(".a-offscreen")&.text&.tr(",", ".")&.tr("€", "")&.strip
   price_includes_shipping = used_item_node.text.includes?("GRATIS bezorging")
 
-  puts price
-
   { url:, price:, price_includes_shipping:, condition: :used, available: true }
 end
