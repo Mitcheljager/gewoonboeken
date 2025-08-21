@@ -2,6 +2,7 @@ require "httparty"
 require_relative "../../config/environment"
 require_relative "../get_book"
 require_relative "../sources/amazon"
+require_relative "../sources/amazon_retourdeals"
 require_relative "../sources/broese"
 require_relative "../sources/bol_partners"
 require_relative "../sources/deslegte"
@@ -25,10 +26,11 @@ isbn_list.each_with_index do |isbn, index|
   puts "\e[44m #{index + 1} out of #{isbn_list.size} \e[0m"
 
   begin
-    result = scrape_amazon(isbn)       if source == "Amazon"
-    result = scrape_broese(isbn)       if source == "Broese"
-    result = scrape_bol_partners(isbn) if source == "Bol.com Partners"
-    result = scrape_deslegte(isbn)     if source == "De Slegte"
+    result = scrape_amazon(isbn)             if source == "Amazon"
+    result = scrape_amazon_retourdeals(isbn) if source == "Amazon RetourDeals"
+    result = scrape_broese(isbn)             if source == "Broese"
+    result = scrape_bol_partners(isbn)       if source == "Bol.com Partners"
+    result = scrape_deslegte(isbn)           if source == "De Slegte"
 
     response = HTTParty.post(base_url + "/api/listings/update",
                             headers: { "Token": token },
