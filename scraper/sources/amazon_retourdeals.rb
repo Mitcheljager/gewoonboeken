@@ -4,8 +4,7 @@ def scrape_amazon_retourdeals(isbn)
   listing = find_listing_for_isbn_and_source_name(isbn, "Amazon") # Deliberately get Amazon rather than Amazon Retourdeals. If Amazon contain no listing, than retourdeals does not either
   amazon_retourdeals_merchant_id = "A3C1D9TG1HJ66Y"
 
-  base_path = "https://www.amazon.nl"
-  url = clean_url(listing&.url || "")
+  url = listing&.url
 
   if url.blank?
     puts "No valid url was found on Amazon RetourDeals for #{isbn}"
@@ -30,9 +29,4 @@ def scrape_amazon_retourdeals(isbn)
 
   { url:, price:, condition: :used, available: true }
   end
-end
-
-def clean_url(url)
-  return url unless url.include?("?")
-  url.sub(/\/ref=.*/, "") # Remove referal bits after the final ?
 end
