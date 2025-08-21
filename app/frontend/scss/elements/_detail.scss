@@ -8,14 +8,23 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
   @include max-width;
   display: grid;
   grid-template:
-    "header image"
-    "content content"
-    "aside aside";
-  grid-template-columns: 2fr 1fr;
+      "image"
+      "header"
+      "content"
+      "aside";
   align-items: flex-start;
-  gap: 0 max($margin * 2, 5vw);
-  margin-top: $margin * 8;
+  margin-top: $margin * 4;
   padding-bottom: $margin * 4;
+
+  @include breakpoint(tiny) {
+    grid-template:
+      "header image"
+      "content content"
+      "aside aside";
+    grid-template-columns: 2fr 1fr;
+    gap: 0 max($margin * 2, 5vw);
+    margin-top: $margin * 8;
+  }
 
   @include breakpoint(mobile) {
     grid-template:
@@ -85,17 +94,23 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
   grid-area: image;
   min-height: 10rem;
   width: 100%;
-  margin: 0;
+  max-width: 10rem;
+  margin: 0 0 $margin * 2;
 
-  @include breakpoint(mobile) {
+  @include breakpoint(tiny) {
     max-width: unset;
+    margin: 0;
   }
 }
 
 .detail__content {
   grid-area: content;
   position: relative;
-  margin-top: $margin * 8;
+  margin-top: $margin * 4;
+
+  @include breakpoint(tiny) {
+    margin-top: $margin * 8;
+  }
 
   @include breakpoint(mobile) {
     margin-top: 0;
