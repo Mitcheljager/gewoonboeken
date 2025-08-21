@@ -1,46 +1,34 @@
 require_relative "../get_document"
 
 def scrape_amazon_retourdeals(isbn)
-  listing = find_listing_for_isbn_and_source_name(isbn, "Amazon RetourDeals")
+  listing = find_listing_for_isbn_and_source_name(isbn, "Amazon") # Deliberately get Amazon rather than Amazon Retourdeals. If Amazon contain no listing, than retourdeals does not either
   amazon_retourdeals_merchant_id = "A3C1D9TG1HJ66Y"
 
   base_path = "https://www.amazon.nl"
   url = clean_url(listing&.url || "")
 
   if url.blank?
-    puts "Running Amazon RetourDeals search page for #{isbn}"
+    puts "No valid url was found on Amazon RetourDeals for #{isbn}"
 
-    document = get_document("#{base_path}/s?k=#{isbn}")
+    { url: nil, available: false }
+  else
 
-    return { url: nil, available: false } if document.nil? || document&.text&.include?("Geen resultaten")
+  puts "Using previous set url #{url}"
 
-    first_search_item_path = document.css("[role='listitem'] a").first.attribute("href").value
-    url = clean_url(base_path + first_search_item_path)
+  document = get_document(url)
+
+  return { url: nil, available: false } unless url.include?("/dp/")
+
+  has_amazon_retour_deals = document.css("#merchant-info:contains('Amazon RetourDeals')")
+
+  if has_amazon_retour_deals
+    puts "Amazon page for \"#{isbn}\" does not contain RetourDeals offer"
+    return { url: url, condition: :used, available: false }
   end
 
-  if url.blank?
-    puts "No valid url was found on Amazon RetourDeals for #{isbn}"
-  else
-    if listing&.url
-      puts "Using previous set url #{url}"
-    else
-      puts "Using newly fetched url #{url}"
-    end
+  price = document.css(".a-accordion-inner:contains('#{amazon_retourdeals_merchant_id}') form input[name*='amount']").first.get_attribute('value')
 
-    document = get_document(url)
-
-    return { url: nil, available: false } unless url.include?("/dp/")
-
-    has_amazon_retour_deals = document.css("#merchant-info:contains('Amazon RetourDeals')")
-
-    if has_amazon_retour_deals
-      puts "Amazon page for \"#{isbn}\" does not contain RetourDeals offer"
-      return { url: url, condition: :used, available: false }
-    end
-
-    price = document.css(".a-accordion-inner:contains('#{amazon_retourdeals_merchant_id}') form input[name*='amount']").first.get_attribute('value')
-
-    { url:, price:, condition: :used, available: true }
+  { url:, price:, condition: :used, available: true }
   end
 end
 
