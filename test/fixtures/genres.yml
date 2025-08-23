@@ -8,28 +8,46 @@ genre_one:
   books_count: 0
 
 genre_two:
-  name: "Science Fiction"
-  slug: "science-fiction"
-  parent_genre_id: genre_one
-  keywords: "sci-fi, speculative, futuristic"
+  name: "Non-Fiction"
+  slug: "non-fiction"
+  parent_genre_id:
+  keywords: "history, biography, essays"
   created_at: <%= Time.zone.now %>
   updated_at: <%= Time.zone.now %>
   books_count: 0
 
 genre_three:
-  name: "Fantasy"
-  slug: "fantasy"
+  name: "Scifi"
+  slug: "scifi"
   parent_genre_id: genre_one
-  keywords: "magic, dragons, adventure"
+  keywords: "sci-fi, science fiction"
   created_at: <%= Time.zone.now %>
   updated_at: <%= Time.zone.now %>
   books_count: 0
 
 genre_four:
-  name: "Non-Fiction"
-  slug: "non-fiction"
-  parent_genre_id:
-  keywords: "history, biography, essays"
+  name: "Fantasy"
+  slug: "fantasy"
+  parent_genre_id: genre_one
+  keywords:
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  books_count: 0
+
+genre_five:
+  name: "Mysterie"
+  slug: "mysterie"
+  parent_genre_id: genre_one
+  keywords:
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  books_count: 0
+
+genre_six:
+  name: "Kookboeken"
+  slug: "kookboeken"
+  parent_genre_id: genre_two
+  keywords:
   created_at: <%= Time.zone.now %>
   updated_at: <%= Time.zone.now %>
   books_count: 0
