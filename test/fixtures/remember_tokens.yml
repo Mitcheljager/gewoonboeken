@@ -1,11 +1,11 @@
 one:
-  user: user_one
+  user: user_admin
   token: some-token
   created_at: <%= Time.zone.now %>
   updated_at: <%= Time.zone.now %>
 
 two:
-  user: user_two
+  user: user_regular
   token: some-other-token
   created_at: <%= Time.zone.now %>
   updated_at: <%= Time.zone.now %>

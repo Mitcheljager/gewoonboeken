@@ -1,4 +1,3 @@
-# test/controllers/pages_controller_test.rb
 require "test_helper"
 
 class PagesControllerTest < ActionDispatch::IntegrationTest

@@ -66,3 +66,7 @@ module ViteRails::TagHelpers
     vite_javascript_tag(name)
   end
 end
+
+def sign_in(user)
+  post sessions_url, params: { username: user.username, password: "password" }
+end
