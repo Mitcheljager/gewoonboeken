@@ -1,7 +1,20 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+author_one:
+  name: "Robert C. Martin"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  slug: "robert-c-martin"
+  description: ""
 
-one:
-  name: MyString
+author_two:
+  name: "Andrew Hunt"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  slug: "andrew-hunt"
+  description: ""
 
-two:
-  name: MyString
+author_three:
+  name: "David Thomas"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  slug: "david-thomas"
+  description: ""

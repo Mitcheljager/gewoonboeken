@@ -1,11 +1,38 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+source_one:
+  name: "Amazon"
+  slug: "amazon"
+  base_url: "https://www.amazon.com"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  shipping_cost: 3.99
+  shipping_cost_currency: "EUR"
+  shipping_cost_free_from_price: 25.0
+  shipping_cost_free_from_quantity: 0
+  disabled: false
+  affiliate_param_string: "tag=my-affiliate-id"
 
-one:
-  name: MyString
-  slug: MyString
-  base_url: MyString
+source_two:
+  name: "Book Store"
+  slug: "book-store"
+  base_url: "https://www.bookstore.com"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  shipping_cost: 0.0
+  shipping_cost_currency: "EUR"
+  shipping_cost_free_from_price: 0.0
+  shipping_cost_free_from_quantity: 0
+  disabled: false
+  affiliate_param_string: ""
 
-two:
-  name: MyString
-  slug: MyString
-  base_url: MyString
+source_three:
+  name: "Local Bookstore"
+  slug: "local-bookstore"
+  base_url: "https://www.localbookstore.com"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  shipping_cost: 5.0
+  shipping_cost_currency: "EUR"
+  shipping_cost_free_from_price: 50.0
+  shipping_cost_free_from_quantity: 0
+  disabled: false
+  affiliate_param_string: ""

@@ -1,11 +1,35 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+genre_one:
+  name: "Fiction"
+  slug: "fiction"
+  parent_genre_id:
+  keywords: "novel, literature"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  books_count: 0
 
-one:
-  name: MyString
-  parent_genre: one
-  keywords: MyString
+genre_two:
+  name: "Science Fiction"
+  slug: "science-fiction"
+  parent_genre_id: genre_one
+  keywords: "sci-fi, speculative, futuristic"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  books_count: 0
 
-two:
-  name: MyString
-  parent_genre: two
-  keywords: MyString
+genre_three:
+  name: "Fantasy"
+  slug: "fantasy"
+  parent_genre_id: genre_one
+  keywords: "magic, dragons, adventure"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  books_count: 0
+
+genre_four:
+  name: "Non-Fiction"
+  slug: "non-fiction"
+  parent_genre_id:
+  keywords: "history, biography, essays"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  books_count: 0

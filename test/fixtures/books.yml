@@ -1,11 +1,43 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+book_one:
+  title: "Some Book"
+  isbn: "9780201616224"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  language: "en"
+  number_of_pages: 352
+  subtitle: "Some subtitle"
+  description: "A description for a book"
+  format: :paperback
+  last_scrape_finished_at: <%= 2.days.ago %>
+  description_last_generated_at: <%= 2.days.ago %>
+  published_date_text: "1999-10-30"
+  keywords: "Random, Keyword, List"
+  cover_original_width: 600
+  cover_original_height: 900
+  last_scrape_started_at: <%= 3.days.ago %>
+  hotness: 10
+  cover_last_scraped_at: <%= 2.days.ago %>
+  listings_lowest_price_cache: 29.99
+  listings_available_count_cache: 20
 
-one:
-  title: MyString
-  author: MyString
-  isbn: MyString
-
-two:
-  title: MyString
-  author: MyString
-  isbn: MyString
+book_two:
+  title: "Some other book"
+  isbn: "9780132350884"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  language: "en"
+  number_of_pages: 464
+  subtitle: "Some second subtitle"
+  description: "Some random description"
+  format: :hardcover
+  last_scrape_finished_at: <%= 5.days.ago %>
+  description_last_generated_at: <%= 5.days.ago %>
+  published_date_text: "2008-08-01"
+  keywords: "Other, List, Of, Keywords"
+  cover_original_width: 600
+  cover_original_height: 900
+  last_scrape_started_at: <%= 6.days.ago %>
+  hotness: 15
+  cover_last_scraped_at: <%= 5.days.ago %>
+  listings_lowest_price_cache: 39.99
+  listings_available_count_cache: 15

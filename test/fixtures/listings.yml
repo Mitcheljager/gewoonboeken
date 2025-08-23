@@ -1,17 +1,37 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+listing_one:
+  book: book_one
+  source: book_one
+  price: 29.99
+  currency: "USD"
+  url: "https://www.amazon.com/pragmatic-programmer/dp/9780201616224"
+  last_scraped_at: <%= 1.day.ago %>
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  number_of_pages: 352
+  description:
+  was_last_scrape_successful: true
+  condition: :new
+  condition_details:
+  available: true
+  published_date_text: "1999-10-30"
+  price_includes_shipping: false
+  last_search_api_request_at: <%= 2.days.ago %>
 
-one:
-  book_id: 1
-  source_id: 1
-  price: 1.5
-  currency: MyString
-  url: MyString
-  last_scraped_at: 2025-07-15 22:46:26
-
-two:
-  book_id: 1
-  source_id: 1
-  price: 1.5
-  currency: MyString
-  url: MyString
-  last_scraped_at: 2025-07-15 22:46:26
+listing_two:
+  book: book_two
+  source: book_two
+  price: 39.99
+  currency: "USD"
+  url: "https://www.bookdepository.com/clean-code/9780132350884"
+  last_scraped_at: <%= 2.days.ago %>
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  number_of_pages: 464
+  description:
+  was_last_scrape_successful: true
+  condition: :used
+  condition_details:
+  available: true
+  published_date_text: "2008-08-01"
+  price_includes_shipping: true
+  last_search_api_request_at: <%= 3.days.ago %>
