@@ -3,6 +3,10 @@ class Api::BaseController < ApplicationController
 
   before_action :reject_unless_token
 
+  def ping
+    render json: { message: "pong" }
+  end
+
   private
 
   def reject_unless_token

@@ -51,7 +51,9 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
+    get "/", to: "base#ping", as: :ping
     get "books/isbn_list", to: "books#isbn_list"
+
     post "listings/update", to: "listings#update"
   end
 
