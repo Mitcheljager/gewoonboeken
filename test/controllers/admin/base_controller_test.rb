@@ -2,8 +2,8 @@ require "test_helper"
 
 class Admin::BaseControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @admin = users(:user_admin)
     @user = users(:user_regular)
+    @admin = users(:user_admin)
   end
 
   test "Admin can access index" do

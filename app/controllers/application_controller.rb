@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def theme_dark?
-    theme === "dark" || headers["Sec-CH-Prefers-Color-Scheme"] === "dark"
+    theme === "dark" || request.headers["Sec-CH-Prefers-Color-Scheme"] === "dark"
   end
 
   def theme_light?

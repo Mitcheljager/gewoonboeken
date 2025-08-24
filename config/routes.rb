@@ -64,4 +64,10 @@ Rails.application.routes.draw do
       url_for(blob)
     end
   end
+
+  if Rails.env.test?
+    get "/dummy", to: "dummy#index"
+    get "/dummy/needs_user", to: "dummy#needs_user"
+    get "/dummy/needs_admin", to: "dummy#needs_admin"
+  end
 end
