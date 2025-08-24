@@ -5,3 +5,7 @@ one:
 two:
   book: book_two
   genre: genre_two
+
+three:
+  book: book_one
+  genre: genre_three

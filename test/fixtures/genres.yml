@@ -1,34 +1,34 @@
 genre_one:
   name: "Fiction"
   slug: "fiction"
-  parent_genre_id:
+  parent_genre:
   keywords: "novel, literature"
   created_at: <%= Time.zone.now %>
   updated_at: <%= Time.zone.now %>
-  books_count: 0
+  books_count: 1
 
 genre_two:
   name: "Non-Fiction"
   slug: "non-fiction"
-  parent_genre_id:
+  parent_genre:
   keywords: "history, biography, essays"
   created_at: <%= Time.zone.now %>
   updated_at: <%= Time.zone.now %>
-  books_count: 0
+  books_count: 1
 
 genre_three:
   name: "Scifi"
   slug: "scifi"
-  parent_genre_id: genre_one
+  parent_genre: genre_one
   keywords: "sci-fi, science fiction"
   created_at: <%= Time.zone.now %>
   updated_at: <%= Time.zone.now %>
-  books_count: 0
+  books_count: 1
 
 genre_four:
   name: "Fantasy"
   slug: "fantasy"
-  parent_genre_id: genre_one
+  parent_genre: genre_one
   keywords:
   created_at: <%= Time.zone.now %>
   updated_at: <%= Time.zone.now %>
@@ -37,7 +37,7 @@ genre_four:
 genre_five:
   name: "Mysterie"
   slug: "mysterie"
-  parent_genre_id: genre_one
+  parent_genre: genre_one
   keywords:
   created_at: <%= Time.zone.now %>
   updated_at: <%= Time.zone.now %>
@@ -46,7 +46,7 @@ genre_five:
 genre_six:
   name: "Kookboeken"
   slug: "kookboeken"
-  parent_genre_id: genre_two
+  parent_genre: genre_two
   keywords:
   created_at: <%= Time.zone.now %>
   updated_at: <%= Time.zone.now %>

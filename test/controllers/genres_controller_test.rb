@@ -2,47 +2,37 @@ require "test_helper"
 
 class GenresControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @genre = genres(:one)
+    @genre = genres(:genre_one)
+    @book = books(:book_one)
+    @other_book = books(:book_two)
+    @subgenre = genres(:genre_three)
   end
 
-  test "should get index" do
-    get genres_url
+  test "Shows genre page with hot books and subgenres" do
+    get genre_path(@genre.slug)
+
     assert_response :success
+
+    assert_select "h1", @genre.name
+    assert_select ".cards .card", text: /#{@book.title}/
+    assert_select ".cards .card", text: /#{@other_book.title}/, count: 0
+
+    assert_select "nav.tags a", text: @subgenre.name
+    assert_select "h2", @subgenre.name
   end
 
-  test "should get new" do
-    get new_genre_url
+  test "Should not show subgenres if none are found" do
+    get genre_path(@subgenre.slug)
+
     assert_response :success
+
+    assert_select "h1", @subgenre.name
+    assert_select "nav.tags", count: 0
   end
 
-  test "should create genre" do
-    assert_difference("Genre.count") do
-      post genres_url, params: { genre: { keywords: @genre.keywords, name: @genre.name, parent_genre_id: @genre.parent_genre_id } }
-    end
+  test "Returns 404 if genre not found" do
+    get genre_path("no-genre")
 
-    assert_redirected_to genre_url(Genre.last)
-  end
-
-  test "should show genre" do
-    get genre_url(@genre)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_genre_url(@genre)
-    assert_response :success
-  end
-
-  test "should update genre" do
-    patch genre_url(@genre), params: { genre: { keywords: @genre.keywords, name: @genre.name, parent_genre_id: @genre.parent_genre_id } }
-    assert_redirected_to genre_url(@genre)
-  end
-
-  test "should destroy genre" do
-    assert_difference("Genre.count", -1) do
-      delete genre_url(@genre)
-    end
-
-    assert_redirected_to genres_url
+    assert_response :not_found
   end
 end
