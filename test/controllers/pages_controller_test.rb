@@ -19,6 +19,31 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, @book2.title
   end
 
+  test "Should render correct hero image for dark theme" do
+    cookies[:theme] = "dark"
+    get root_url
+
+    assert_select "img[src*='doodle-reader-dark.png']"
+    assert_select "source[srcset*='doodle-reader']", count: 0
+    assert_select "source[data-srcset*='doodle-reader']", count: 2
+  end
+
+  test "Should render correct hero image for light theme" do
+    cookies[:theme] = "light"
+    get root_url
+
+    assert_select "img[src*='doodle-reader-light']"
+    assert_select "source[srcset*='doodle-reader']", count: 0
+    assert_select "source[data-srcset*='doodle-reader']", count: 2
+  end
+
+  test "Should render correct hero image with srcset in source when no theme is set via cookie" do
+    cookies[:theme] = nil
+    get root_url
+
+    assert_select "source[srcset*='doodle-reader']", count: 2
+  end
+
   test "Should get about" do
     get about_url
     assert_response :success
