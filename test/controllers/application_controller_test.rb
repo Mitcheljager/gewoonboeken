@@ -1,4 +1,3 @@
-# test/controllers/application_controller_test.rb
 require "test_helper"
 
 class DummyController < ApplicationController
