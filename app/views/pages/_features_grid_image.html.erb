@@ -1,0 +1,6 @@
+<picture data-theme>
+  <source <%= "data-" if theme.present? %>srcset="<%= vite_asset_path("images/#{image}-light.png") %>" media="(prefers-color-scheme: light)">
+  <source <%= "data-" if theme.present? %>srcset="<%= vite_asset_path("images/#{image}-dark.png") %>" media="(prefers-color-scheme: dark)">
+
+  <img src="<%= vite_asset_path("images/#{image}-#{theme || "light"}.png") %>" class="block__image" width="<%= width %>" height="<%= height %>" style="<%= style %>" alt="">
+</picture>

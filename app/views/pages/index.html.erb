@@ -14,22 +14,19 @@
 <div class="layout">
   <section class="blocks">
     <div class="block">
-      <img <%= "data-" unless theme_light? %>src="<%= vite_asset_path("images/doodle-bag-light.png") %>" height="90" width="82" alt="" class="block__image light-only" data-theme="light" loading="lazy" />
-      <img <%= "data-" unless theme_dark? %>src="<%=  vite_asset_path("images/doodle-bag-dark.png") %>"  height="90" width="82" alt="" class="block__image dark-only"  data-theme="dark"  loading="lazy" />
+      <%= render "features_grid_image", image: "doodle-bag", height: 90, width: 82, style: "" %>
 
       Boeken van meer dan 15 webshops allemaal op 1 plek.
     </div>
 
     <div class="block">
-      <img <%= "data-" unless theme_light? %>src="<%= vite_asset_path("images/doodle-glasses-light.png") %>" height="35" width="73" alt="" class="block__image light-only" data-theme="light" loading="lazy" style="top: 0.5rem" />
-      <img <%= "data-" unless theme_dark? %>src="<%=  vite_asset_path("images/doodle-glasses-dark.png") %>"  height="35" width="73" alt="" class="block__image dark-only"  data-theme="dark"  loading="lazy" style="top: 0.5rem" />
+      <%= render "features_grid_image", image: "doodle-glasses", height: 35, width: 73, style: "top: 0.5rem" %>
 
       In één simpel overzicht alle prijzen op een rij.
     </div>
 
     <div class="block">
-      <img <%= "data-" unless theme_light? %>src="<%= vite_asset_path("images/doodle-tea-light.png") %>" height="80" width="46" alt="" class="block__image light-only" data-theme="light" loading="lazy" style="left: 0" />
-      <img <%= "data-" unless theme_dark? %>src="<%=  vite_asset_path("images/doodle-tea-dark.png") %>"  height="80" width="46" alt="" class="block__image dark-only"  data-theme="dark"  loading="lazy" style="left: 0" />
+      <%= render "features_grid_image", image: "doodle-tea", height: 80, width: 46, style: "left: 0" %>
 
       Vind gemakkelijk boeken van alle soorten en maten.
     </div>

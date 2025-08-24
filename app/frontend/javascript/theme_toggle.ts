@@ -50,11 +50,32 @@ export default class theme_toggle {
   }
 
   private toggle_theme_images(): void {
-    const elements = Array.from(document.querySelectorAll("[data-theme]")) as (HTMLImageElement | HTMLSourceElement)[];
+    const pictures = document.querySelectorAll<HTMLPictureElement>("picture[data-theme]")
 
-    elements.forEach(element => {
-      if (element.dataset.src) element.src = element.dataset.src;
-      if (element.dataset.srcset) element.srcset = element.dataset.srcset;
+    pictures.forEach(picture => {
+      const sources = picture.querySelectorAll<HTMLSourceElement>("source")
+
+      // Swap all `srcset` attributes for `data-srcset` to force the `img` tag to use the `src` we want
+      sources.forEach(source => {
+        if (!source.srcset) return
+
+        source.dataset.srcset = source.srcset
+        source.srcset = ""
+      })
+
+      // Get the src we want from the corresponding `source` tag, based on it's media attribute
+      const expected_source = picture.querySelector<HTMLSourceElement>(`[media*=${theme_toggle.theme}`)!.dataset.srcset!
+      const image = picture.querySelector("img")
+
+      image!.src = expected_source
+
+      // Re-insert the picture tag into the dom to force it to re-render right away.
+      // Otherwise the image of the previous theme would show while the new one is loaded. Empty space is prefered.
+      const cloned_picture = picture.cloneNode(true) as Element
+      picture.insertAdjacentElement("afterend", cloned_picture)
+
+      // The element needs to be cloned, otherwise we'd end up removing both here.
+      picture.remove()
     });
   }
 }
