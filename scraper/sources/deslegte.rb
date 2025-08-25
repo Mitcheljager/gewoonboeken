@@ -13,7 +13,7 @@ def scrape_deslegte(isbn)
 
   url = listing&.url
 
-  if listing&.url
+  if listing&.url&.present?
     puts "Running previously fetched url For De Slegte for: " + url
 
     document = get_document(url)
