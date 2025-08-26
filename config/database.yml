@@ -12,7 +12,7 @@ default: &default
 development:
   primary:
     <<: *default
-    database: storage/development.sqlite3
+    database: storage/production.sqlite3
 
   queue:
     <<: *default
