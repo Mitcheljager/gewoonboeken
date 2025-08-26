@@ -49,7 +49,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     @user.remember_tokens.create!(token: "some-token")
 
     sign_in(@user)
-    delete sessions_path
+    get logout_path
 
     assert_redirected_to login_path
     assert_nil session[:user_id]
