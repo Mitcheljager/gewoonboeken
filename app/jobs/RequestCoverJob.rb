@@ -9,10 +9,9 @@ class RequestCoverJob < ApplicationJob
     book.update(cover_last_scraped_at: DateTime.now)
 
     begin
-      output = `ruby #{Rails.root.join("scraper/attach_image_for_isbn.rb")} #{book.isbn}`
-      Rails.logger.info output
+      system("ruby", Rails.root.join("scraper/attach_image_for_isbn.rb").to_s, book.isbn.to_s)
     rescue => error
-      puts error
+      Rails.logger.error(error)
     end
   end
 end

@@ -9,10 +9,9 @@ class RequestDescriptionJob < ApplicationJob
     book.update!(description_last_generated_at: DateTime.now)
 
     begin
-      output = `ruby #{Rails.root.join("scraper/ai/openai_descriptions.rb")} isbn=#{book.isbn}`
-      Rails.logger.info output
+      system("ruby", Rails.root.join("scraper/ai/openai_descriptions.rb").to_s, "isbn=#{book.isbn}")
     rescue => error
-      puts error
+      Rails.logger.error(error)
     end
   end
 end

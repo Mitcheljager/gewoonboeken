@@ -14,10 +14,9 @@ class RequestScrapeJob < ApplicationJob
     book.update!(last_scrape_started_at: DateTime.now)
 
     begin
-      output = `ruby #{Rails.root.join("scraper/run_all_scrapers.rb")} isbn=#{book.isbn} title="#{book.title}"`
-      Rails.logger.info output
+      system("ruby", Rails.root.join("scraper/run_all_scrapers.rb").to_s, "isbn=#{book.isbn}", "title=#{book.title}")
     rescue => error
-      puts error
+      Rails.logger.error(error)
     ensure
       book.update!(last_scrape_finished_at: DateTime.now)
     end
