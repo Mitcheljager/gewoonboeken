@@ -3,8 +3,7 @@ class ActionsController < ApplicationController
 
   def index_by_isbn
     begin
-      output = `ruby #{Rails.root.join("scraper/index/index_book_by_isbn.rb")} #{params[:isbn]}` # :skip-brakeman:
-      Rails.logger.info output
+      system("ruby", Rails.root.join("scraper/index/index_book_by_isbn.rb").to_s, params[:isbn].to_s)
 
       @book = Book.find_by_isbn(params[:isbn])
       redirect_to [:admin, @book], notice: "Book was successfully updated.", status: :see_other
@@ -37,7 +36,6 @@ class ActionsController < ApplicationController
 
       redirect_to [:admin, @book], notice: "Scrapers completed successfully", status: :see_other
     rescue => error
-      puts error
       flash[:alert] = error
       redirect_to [:admin, @book]
     end
@@ -60,8 +58,7 @@ class ActionsController < ApplicationController
     @book = Book.find_by_isbn!(params[:isbn])
 
     begin
-      output = `ruby #{Rails.root.join("scraper/ai/openai_keywords.rb")} isbn=#{@book.isbn}` # :skip-brakeman:
-      Rails.logger.info output
+      system("ruby", Rails.root.join("scraper/ai/openai_keywords.rb").to_s, "isbn=#{@book.isbn}")
 
       redirect_to [:admin, @book], notice: "AI completed successfully", status: :see_other
     rescue => error
@@ -74,8 +71,7 @@ class ActionsController < ApplicationController
     @author = Author.find_by_slug!(params[:slug])
 
     begin
-      output = `ruby #{Rails.root.join("scraper/ai/openai_author_description.rb")} "#{@author.name}"` # :skip-brakeman:
-      Rails.logger.info output
+      system("ruby", Rails.root.join("scraper/ai/openai_author_description.rb").to_s, @author.name.to_s)
 
       redirect_to [:admin, @author], notice: "AI completed successfully", status: :see_other
     rescue => error
