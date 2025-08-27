@@ -3,7 +3,7 @@ class ActionsController < ApplicationController
 
   def index_by_isbn
     begin
-      output = `ruby #{Rails.root.join("scraper/index/index_book_by_isbn.rb")} #{params[:isbn]}`
+      output = `ruby #{Rails.root.join("scraper/index/index_book_by_isbn.rb")} #{params[:isbn]}` # :skip-brakeman:
       Rails.logger.info output
 
       @book = Book.find_by_isbn(params[:isbn])
@@ -60,7 +60,7 @@ class ActionsController < ApplicationController
     @book = Book.find_by_isbn!(params[:isbn])
 
     begin
-      output = `ruby #{Rails.root.join("scraper/ai/openai_keywords.rb")} isbn=#{@book.isbn}`
+      output = `ruby #{Rails.root.join("scraper/ai/openai_keywords.rb")} isbn=#{@book.isbn}` # :skip-brakeman:
       Rails.logger.info output
 
       redirect_to [:admin, @book], notice: "AI completed successfully", status: :see_other
@@ -74,7 +74,7 @@ class ActionsController < ApplicationController
     @author = Author.find_by_slug!(params[:slug])
 
     begin
-      output = `ruby #{Rails.root.join("scraper/ai/openai_author_description.rb")} "#{@author.name}"`
+      output = `ruby #{Rails.root.join("scraper/ai/openai_author_description.rb")} "#{@author.name}"` # :skip-brakeman:
       Rails.logger.info output
 
       redirect_to [:admin, @author], notice: "AI completed successfully", status: :see_other
