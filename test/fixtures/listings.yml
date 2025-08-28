@@ -1,6 +1,6 @@
 listing_one:
   book: book_one
-  source: book_one
+  source: source_one
   price: 29.99
   currency: "USD"
   url: "https://www.amazon.com/pragmatic-programmer/dp/9780201616224"
@@ -19,7 +19,7 @@ listing_one:
 
 listing_two:
   book: book_two
-  source: book_two
+  source: source_two
   price: 39.99
   currency: "USD"
   url: "https://www.bookdepository.com/clean-code/9780132350884"

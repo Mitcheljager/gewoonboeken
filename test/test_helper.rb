@@ -67,6 +67,30 @@ module ViteRails::TagHelpers
   end
 end
 
+class NullElasticsearchClient
+  def search(*)
+    self
+  end
+
+  def records
+    Book.none
+  end
+
+  def method_missing(*)
+    self
+  end
+
+  def respond_to_missing?(*)
+    true
+  end
+end
+
+class Book < ApplicationRecord
+  def self.__elasticsearch__
+    @__elasticsearch__ ||= NullElasticsearchClient.new
+  end
+end
+
 def sign_in(user)
   post "/sessions", params: { username: user.username, password: "password" }
 end

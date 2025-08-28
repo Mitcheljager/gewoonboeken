@@ -7,7 +7,6 @@ class BooksController < ApplicationController
 
   def index
     @books = BookFilter.new(Book.overview_join, filter_params).filter.page(params[:page])
-
     @genres = Genre.includes(subgenres: { subgenres: { subgenres: :subgenres } }).where(parent_genre_id: nil)
   end
 
