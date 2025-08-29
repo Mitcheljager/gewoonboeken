@@ -4,7 +4,7 @@ require "openai"
 
 def get_openai_description(book, client)
   begin
-    descriptions = book.listings.pluck(:description).compact.uniq
+    descriptions = book.listings.pluck(:description).reject(&:blank?).uniq
     if descriptions.none?
       puts "No descriptions for ISBN #{book.isbn} were found"
       return
