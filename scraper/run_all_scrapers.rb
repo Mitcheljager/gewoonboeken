@@ -89,7 +89,7 @@ def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description:
   source = Source.find_by_name(source_name)
 
   listing = Listing.find_or_initialize_by(book_id: book.id, source_id: source.id)
-  listing.price = Float(price || 0)
+  listing.price = [Float(price || 0), 0].max # Prevent negative numbers, which some sources sometimes contain
   listing.currency = currency
   listing.url = url
   listing.number_of_pages = number_of_pages

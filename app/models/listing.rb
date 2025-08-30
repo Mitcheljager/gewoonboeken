@@ -8,6 +8,7 @@ class Listing < ApplicationRecord
 
   validates :currency, inclusion: { in: VALID_CURRENCIES, message: "%{value} is not a valid currency" }, allow_nil: true
   validates :condition, inclusion: { in: Listing.conditions.keys }
+  validates :price, numericality: { greater_than_or_equal_to: 0 }
 
   after_save :update_book_cache
   after_destroy :update_book_cache
