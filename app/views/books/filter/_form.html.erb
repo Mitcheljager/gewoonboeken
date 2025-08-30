@@ -13,7 +13,7 @@
 
   <h2 class="filter__heading">Sorteer.</h2>
 
-  <% sorting_options = [["Relevantie", nil], ["Nieuw naar oud", "new"], ["Oud naar nieuw", "old"], ["Laatst toegevoegd", "latest"]] %>
+  <% sorting_options = [["Relevantie", nil], ["Nieuw naar oud", "new"], ["Oud naar nieuw", "old"], ["Laagste prijs", "lowest"], ["Hoogste prijs", "highest"], ["Laatst toegevoegd", "latest"]] %>
   <%= select_tag "sort", options_for_select(sorting_options, filter_params[:sort]), { class: "form-select" } %>
 
   <h2 class="filter__heading mt-4">Beschikbaarheid.</h2>

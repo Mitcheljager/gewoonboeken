@@ -83,6 +83,10 @@ class BookFilter
       @books = books.order(Arel.sql("books.published_date_text ASC"))
     elsif params[:sort] == "latest"
       @books = books.order(created_at: :desc)
+    elsif params[:sort] == "lowest"
+      @books = books.order(listings_lowest_price_cache: :asc)
+    elsif params[:sort] == "highest"
+      @books = books.order(listings_lowest_price_cache: :desc)
     elsif params[:query].present?
       @books = books
     else
