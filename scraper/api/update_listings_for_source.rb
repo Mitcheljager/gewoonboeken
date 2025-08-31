@@ -18,8 +18,9 @@ sleep_timeout = arguments["sleep"]&.to_i || 3
 source = arguments["source"]
 order = arguments["order"] || "hotness"
 order_direction = arguments["order_direction"] || "desc"
+offset = arguments["offset"] || 0
 
-isbn_list = HTTParty.get(base_url + "/api/books/isbn_list?order=#{order}&order_direction=#{order_direction}",
+isbn_list = HTTParty.get(base_url + "/api/books/isbn_list?order=#{order}&order_direction=#{order_direction}&offset=#{offset}",
                          headers: { "Token": token })
 
 isbn_list.each_with_index do |isbn, index|
