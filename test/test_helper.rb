@@ -4,8 +4,11 @@ require "rails/test_help"
 
 module ActiveSupport
   class TestCase
-    # Run tests in parallel with specified workers
-    parallelize(workers: :number_of_processors, with: :threads)
+    if Rails.env.test? && ActiveRecord::Base.connection.adapter_name == "SQLite"
+      parallelize(workers: 1)
+    else
+      parallelize(workers: :number_of_processors)
+    end
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
