@@ -15,12 +15,14 @@ class AuthorTest < ActiveSupport::TestCase
 
   test "Is invalid without a name" do
     author.name = nil
+
     refute_predicate author, :valid?
     assert_includes author.errors[:name], "can't be blank"
   end
 
   test "Is invalid without a slug" do
     author.slug = nil
+
     refute_predicate author, :valid?
     assert_includes author.errors[:slug], "can't be blank"
   end
