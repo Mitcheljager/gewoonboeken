@@ -4,7 +4,7 @@ require "rails/test_help"
 
 module ActiveSupport
   class TestCase
-    if Rails.env.test? && ActiveRecord::Base.connection.adapter_name == "SQLite"
+    if ActiveRecord::Base.connection.adapter_name == "SQLite"
       parallelize(workers: 1)
     else
       parallelize(workers: :number_of_processors)
