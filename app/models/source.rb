@@ -1,5 +1,5 @@
 class Source < ApplicationRecord
-  has_many :sources, dependent: :destroy
+  has_many :listings, dependent: :destroy
 
   has_one_attached :logo do |attachable|
     attachable.variant(:medium, resize_to_fill: [64, 64], quality: 75, format: :webp, preprocessed: true)
@@ -14,8 +14,8 @@ class Source < ApplicationRecord
   # This is mostly to prevent rogue file names from being left in accidentally.
   before_save do
     if logo.attached?
-        ext = "." + logo.blob.filename.extension
-        logo.blob.update(filename: slug + ext)
+        extension = "." + logo.blob.filename.extension
+        logo.blob.update(filename: slug + extension)
     end
   end
 
