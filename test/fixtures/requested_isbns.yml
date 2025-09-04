@@ -2,8 +2,8 @@
 
 one:
   isbn: MyString
-  status: MyString
+  status: 0
 
 two:
   isbn: MyString
-  status: MyString
+  status: 0
