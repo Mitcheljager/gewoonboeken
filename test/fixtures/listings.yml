@@ -2,7 +2,7 @@ listing_one:
   book: book_one
   source: source_one
   price: 29.99
-  currency: "USD"
+  currency: EUR
   url: "https://www.amazon.com/pragmatic-programmer/dp/9780201616224"
   last_scraped_at: <%= 1.day.ago %>
   created_at: <%= Time.zone.now %>
@@ -21,7 +21,7 @@ listing_two:
   book: book_two
   source: source_two
   price: 39.99
-  currency: "USD"
+  currency: EUR
   url: "https://www.bookdepository.com/clean-code/9780132350884"
   last_scraped_at: <%= 2.days.ago %>
   created_at: <%= Time.zone.now %>

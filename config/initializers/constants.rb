@@ -1,1 +1,1 @@
-VALID_CURRENCIES = %w[EUR GBP].freeze
+VALID_CURRENCIES = %w[EUR].freeze
