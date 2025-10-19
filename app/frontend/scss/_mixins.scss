@@ -8,7 +8,7 @@
     $value: map.get($breakpoints, $media);
   }
 
-  @media (min-width: #{ $value }) {
+  @media (min-width: #{$value}) {
     @content;
   }
 }
