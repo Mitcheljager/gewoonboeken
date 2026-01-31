@@ -58,7 +58,7 @@ gem "nokogiri", require: false
 # Search
 gem "bonsai-elasticsearch-rails", github: "omc/bonsai-elasticsearch-rails", branch: "master"
 gem "elasticsearch-model", "7.1.1"
-gem "elasticsearch-rails", "8.0.1"
+gem "elasticsearch-rails", "7.1.1"
 gem "elasticsearch", "<= 7.10.2" # Limited by Bonsai support
 gem "elasticsearch-api", "<= 7.10.2" # Limited by Bonsai support
 
