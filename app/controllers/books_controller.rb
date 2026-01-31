@@ -51,7 +51,6 @@ class BooksController < ApplicationController
   end
 
   def request_description
-    # Stop if there are no listings with descriptions or a description has already been generated.
     return if @book.listings.where.not(description: nil).none?
     return if @book.description_last_generated_at.present?
 
@@ -61,9 +60,6 @@ class BooksController < ApplicationController
   end
 
   def request_cover
-    # Stop if book already has a cover of if it has attempted to get the cover before.
-    # It's possible a book simply has no cover on Goodreads, in which case we don't want
-    # to keep retrying for each request.
     return if @book.cover_image.attached?
     return if @book.cover_last_scraped_at.present?
 

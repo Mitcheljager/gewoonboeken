@@ -38,9 +38,6 @@ class SessionsController < ApplicationController
 
   private
 
-  # Sets a path to return to when the user hits the log in path.
-  # Only considers paths that match the current host to prevent being redirected to external sites
-  # you may have entered from.
   def set_return_path
     return unless request.referrer.present?
 

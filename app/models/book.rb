@@ -75,7 +75,6 @@ class Book < ApplicationRecord
     return true if is_scrape_frozen?
     return false if is_scrape_ongoing?
 
-    # A scrape has never been started, or the last scrape is past the threshold.
     last_scrape_finished_at.present? && last_scrape_finished_at < 1.day.ago
   end
 
@@ -83,10 +82,8 @@ class Book < ApplicationRecord
     return false if last_scrape_started_at.nil?
     return false if is_scrape_frozen?
 
-    # Check if a start datetime exists without an end datetime.
     return true if last_scrape_started_at.present? && last_scrape_finished_at.nil?
 
-    # Finally check if the finished datetime is before the end datetime, indicating that it has not yet finished.
     last_scrape_finished_at < last_scrape_started_at
   end
 
@@ -133,7 +130,6 @@ class Book < ApplicationRecord
     parts[0]
   end
 
-  # Keywords are a comma separated list, use this method to get them as an array
   def separated_keywords
     keywords.to_s.split(",").map(&:strip)
   end

@@ -25,7 +25,6 @@ module RememberTokenHandler
     end
   end
 
-  # Either refresh the duration of the current cookie, or generate a new token and set a new cookie
   def refresh_remember_token_cookie
     value = cookies.encrypted[COOKIE_NAME] || generate_remember_token
 

@@ -21,7 +21,6 @@ export default class turbo_action_progress_bar {
       adapter.progressBar.setValue(0);
       adapter.progressBar.show();
 
-      // Fade the turbo frame out while loading
       if (turbo_action_progress_bar.frame.dataset.turboFade !== "true") return;
 
       turbo_action_progress_bar.frame.style.transition = "opacity 200ms";
