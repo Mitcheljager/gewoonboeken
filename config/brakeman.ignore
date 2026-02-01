@@ -9,7 +9,7 @@
       "file": "app/views/admin/listings/_listing.html.erb",
       "line": 41,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(Listing.find(params.expect(:id)).url, Listing.find(params.expect(:id)).url, :target => \"_blank\", :rel => \"noreferral nofollow noopener\")",
+      "code": "link_to(Listing.find(params.expect(:id)).url, Listing.find(params.expect(:id)).url, :target => \"_blank\", :rel => \"noreferrer nofollow noopener\")",
       "render_path": [
         {
           "type": "controller",
