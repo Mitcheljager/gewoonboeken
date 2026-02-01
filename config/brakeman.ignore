@@ -3,11 +3,11 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
-      "fingerprint": "a9e7b877d333efeb68cccde4a4a7fcca543211fcdea97c2942e7820e83df9c20",
+      "fingerprint": "1b1c6c0ec6243c8833c12fa3134ecbe10f57820c9b371f9b2ce2aedfa219ad51",
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/admin/listings/_listing.html.erb",
-      "line": 41,
+      "line": 40,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to(Listing.find(params.expect(:id)).url, Listing.find(params.expect(:id)).url, :target => \"_blank\", :rel => \"noreferrer nofollow noopener\")",
       "render_path": [
