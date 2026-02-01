@@ -6,6 +6,7 @@ class Listing < ApplicationRecord
 
   enum :condition, [:unknown, :new, :used, :damaged], suffix: true
 
+  validates :url, format: { with: /\Ahttps?:\/\/[\S]+\z/, message: "must be a valid http/https url" }, allow_blank: true
   validates :currency, inclusion: { in: VALID_CURRENCIES, message: "%{value} is not a valid currency" }, allow_nil: true
   validates :condition, inclusion: { in: Listing.conditions.keys }
   validates :price, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
