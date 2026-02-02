@@ -150,7 +150,7 @@ GEM
       activesupport (> 3)
       elasticsearch (> 1)
       hashie
-    elasticsearch-rails (7.1.1)
+    elasticsearch-rails (8.0.1)
     elasticsearch-transport (7.4.0)
       faraday
       multi_json
@@ -484,7 +484,7 @@ DEPENDENCIES
   elasticsearch (<= 7.10.2)
   elasticsearch-api (<= 7.10.2)
   elasticsearch-model (= 7.1.1)
-  elasticsearch-rails (= 7.1.1)
+  elasticsearch-rails (= 8.0.1)
   httparty
   image_processing (~> 1.2)
   importmap-rails
