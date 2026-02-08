@@ -44,7 +44,6 @@ class Admin::UsersController < Admin::BaseController
     @user = User.find(params.expect(:id))
   end
 
-
   def user_params
     params.expect(user: [:username, :password, :password_confirmation, :admin])
   end
