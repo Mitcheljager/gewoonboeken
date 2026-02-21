@@ -266,7 +266,7 @@ create_genre("Taal", "taal", "non-fictie", keywords: "Language, ")
 
 # Cookbooks
 create_genre("Vegetarisch", "vegetarisch", "kookboeken", keywords: "vegetarian")
-create_genre("Vegen", "vegen", "kookboeken", keywords: "vegan")
+create_genre("Vegan", "vegan", "kookboeken", keywords: "vegan")
 create_genre("Bakken & Desserts", "bakken-desserts", "kookboeken", keywords: "Desserts, Baking")
 create_genre("Dieet & Voeding", "dieet-voeding", "kookboeken", keywords: "Diet")
 create_genre("Dranken", "dranken", "kookboeken", keywords: "Alcohol, Beverages")
