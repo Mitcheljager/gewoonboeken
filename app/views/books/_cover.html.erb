@@ -1,5 +1,6 @@
 <% small ||= false %>
 <% image_variant ||= :large %>
+<% cover_url = image_variant == :large ? book.cover_url_large : book.cover_url_small %>
 <% width = small ? 120 : 300 %>
 <% height = (width.to_f / (book.cover_original_width.to_f) * (book.cover_original_height.to_f)) %>
 <% loading ||= nil %>
@@ -9,11 +10,11 @@
   class="cover <%= "cover--small" if small %>"
   style="<%= "--aspect-ratio: #{book.cover_aspect_ratio}" if book.cover_aspect_ratio.present? %>">
 
-  <% if book.cover_image.attached? %>
-    <%= image_tag rails_public_blob_url(book.cover_image.variant(image_variant)), width:, height:, alt: book.title, loading:, fetchpriority: %>
+  <% if cover_url.present? %>
+    <%= image_tag cover_url, width:, height:, alt: book.title, loading:, fetchpriority: %>
 
     <% if !small %>
-      <%= image_tag rails_public_blob_url(book.cover_image.variant(image_variant)), width:, height:, class: "cover__blur", alt: "", loading: %>
+      <%= image_tag cover_url, width:, height:, class: "cover__blur", alt: "", loading: %>
     <% end %>
   <% else %>
     <div class="cover__empty">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_04_205617) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_28_130740) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", limit: 255, null: false
     t.string "record_type", limit: 255, null: false
@@ -128,6 +128,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_04_205617) do
     t.datetime "cover_last_scraped_at", precision: nil
     t.float "listings_lowest_price_cache", default: 0.0
     t.integer "listings_available_count_cache", default: 0
+    t.string "cover_url_large"
+    t.string "cover_url_small"
     t.index ["hotness"], name: "index_books_on_hotness"
     t.index ["isbn"], name: "index_books_on_isbn", unique: true
   end

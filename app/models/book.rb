@@ -32,13 +32,14 @@ class Book < ApplicationRecord
   accepts_nested_attributes_for :book_authors, allow_destroy: true
   accepts_nested_attributes_for :book_genres, allow_destroy: true
 
+  after_commit :cache_cover_urls, on: [:update], if: -> { cover_image.attached? }
+
   def to_param
     "#{title.parameterize}-#{isbn}"
   end
 
   def self.overview_join
-    self.includes(:authors, cover_image_attachment: { blob: :variant_records })
-        .references(:authors)
+    self.includes(:authors).references(:authors)
   end
 
   def self.full_join
@@ -214,5 +215,12 @@ class Book < ApplicationRecord
       genres: genres.map(&:name),
       genre_keywords: genres.flat_map { |g| g.keywords.to_s.split(",").map(&:strip) }
     }
+  end
+
+  def cache_cover_urls
+    update_columns(
+      cover_url_large: cover_image.variant(:large).processed.url,
+      cover_url_small: cover_image.variant(:small).processed.url
+    )
   end
 end
