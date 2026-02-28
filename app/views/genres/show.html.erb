@@ -28,18 +28,16 @@
   <% end %>
 
   <% @subgenres.each do |subgenre| %>
-    <% if subgenre.books_count > 0 %>
-      <section class="mt-8">
-        <h2 class="mb-4"><%= subgenre.name %></h2>
+    <section class="mt-8">
+      <h2 class="mb-4"><%= subgenre.name %></h2>
 
-        <div class="cards">
-          <% cache ["genre-top-books", subgenre.id], expires_in: 4.hours do %>
-            <%= render collection: subgenre.books.overview_join.limit(8), partial: "books/card", as: :book %>
-          <% end %>
-        </div>
+      <div class="cards">
+        <% cache ["genre-top-books", subgenre.id], expires_in: 4.hours do %>
+          <%= render collection: subgenre.books.overview_join.limit(8), partial: "books/card", as: :book %>
+        <% end %>
+      </div>
 
-        <%= link_to "Bekijk alles in #{subgenre.name}", books_path(genres: [subgenre]), class: "button button--large mt-2" %>
-      </section>
-    <% end %>
+      <%= link_to "Bekijk alles in #{subgenre.name}", books_path(genres: [subgenre]), class: "button button--large mt-2" %>
+    </section>
   <% end %>
 </div>
