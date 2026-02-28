@@ -219,8 +219,8 @@ class Book < ApplicationRecord
 
   def cache_cover_urls
     update_columns(
-      cover_url_large: cover_image.variant(:large).processed.url,
-      cover_url_small: cover_image.variant(:small).processed.url
+      cover_url_large: Rails.application.routes.url_helpers.rails_public_blob_url(cover_image.variant(:large).processed),
+      cover_url_small: Rails.application.routes.url_helpers.rails_public_blob_url(cover_image.variant(:small).processed)
     )
   end
 end

@@ -12,7 +12,7 @@ task cache_book_covers: :environment do
     begin
       book.cache_cover_urls
     rescue => error
-      print "Skipped: #{error.message}"
+      print "Skipped: #{error.message}\n"
     end
 
     index += 1
