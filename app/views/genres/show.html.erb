@@ -6,7 +6,7 @@
   <% if @genre_links.any? %>
     <nav class="tags mt-4">
       <% cache ["genre-tags", @genre.id] do %>
-        <% @genre_links.order(name: :asc).each do |genre| %>
+        <% @genre_links.each do |genre| %>
           <%= link_to genre.name, genre, class: "tag tag--large", data: { turbo_prefetch: false } %>
         <% end %>
       <% end %>

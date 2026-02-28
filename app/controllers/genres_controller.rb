@@ -6,7 +6,7 @@ class GenresController < ApplicationController
 
     subgenres = @genre.subgenres.where.not(books_count: 0)
     @subgenres = subgenres.order(books_count: :desc).limit(4)
-    @genre_links = subgenres.select(:name, :slug, :books_count).where.not(books_count: 0)
+    @genre_links = subgenres.select(:name, :slug, :books_count).where.not(books_count: 0).order(name: :asc)
   end
 
   private
