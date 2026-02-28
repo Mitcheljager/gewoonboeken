@@ -55,7 +55,7 @@
         </span>
       </span>
 
-      <%= image_tag rails_public_blob_url(book.cover_image.variant(:small).processed), class: "card__blur", width: 120, height: 120, alt: "", loading: "lazy" if book.cover_image.attached? %>
+      <%= image_tag rails_public_blob_url(book.cover_image.variant(:small)), class: "card__blur", width: 120, height: 120, alt: "", loading: "lazy" if book.cover_image.attached? %>
     <% end %>
   </article>
 <% end %>

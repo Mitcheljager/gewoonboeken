@@ -1,7 +1,7 @@
 <% url = listing.url + listing.source.affiliate_param_string.to_s %>
 
 <%= link_to url, class: "listing", target: "_blank", rel: "noreferrer nofollow noopener", aria: { labelledby: "listing-#{listing.id}" } do %>
-  <%= image_tag (listing.source.logo.attached? ? rails_public_blob_url(listing.source.logo.variant(:medium).processed) : ""), class: "listing__image", alt: "" %>
+  <%= image_tag (listing.source.logo.attached? ? rails_public_blob_url(listing.source.logo.variant(:medium)) : ""), class: "listing__image", alt: "" %>
 
   <span class="listing__content">
     <span class="listing__name" id="listing-<%= listing.id %>"><%= listing.source.name %></span>

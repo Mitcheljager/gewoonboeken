@@ -10,10 +10,10 @@
   style="<%= "--aspect-ratio: #{book.cover_aspect_ratio}" if book.cover_aspect_ratio.present? %>">
 
   <% if book.cover_image.attached? %>
-    <%= image_tag rails_public_blob_url(book.cover_image.variant(image_variant).processed), width:, height:, alt: book.title, loading:, fetchpriority: %>
+    <%= image_tag rails_public_blob_url(book.cover_image.variant(image_variant)), width:, height:, alt: book.title, loading:, fetchpriority: %>
 
     <% if !small %>
-      <%= image_tag rails_public_blob_url(book.cover_image.variant(image_variant).processed), width:, height:, class: "cover__blur", alt: "", loading: %>
+      <%= image_tag rails_public_blob_url(book.cover_image.variant(image_variant)), width:, height:, class: "cover__blur", alt: "", loading: %>
     <% end %>
   <% else %>
     <div class="cover__empty">
