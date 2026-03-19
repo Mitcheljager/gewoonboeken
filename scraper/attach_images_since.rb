@@ -6,7 +6,7 @@ require_relative "attach_remote_image"
 hours_ago = ARGV[0].to_i
 
 hours_ago_time = Time.now - hours_ago.hours
-books = Book.where('last_scrape_finished_at < ? OR last_scrape_finished_at IS NULL', hours_ago_time)
+books = Book.where('created_at > ?', hours_ago_time)
 
 books.each_with_index do |book, index|
   puts "(#{index + 1} / #{books.size}) Finding and attaching image for #{book.isbn}..."
