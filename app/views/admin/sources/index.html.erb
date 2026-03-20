@@ -3,12 +3,9 @@
 
   <hr>
 
-  <div id="sources">
+  <div class="tiles" id="sources">
     <% @sources.each do |source| %>
       <%= render source %>
-      <p>
-        <%= link_to "Show this source", [:admin, source] %>
-      </p>
     <% end %>
   </div>
 <% end %>

@@ -14,7 +14,7 @@
   <div class="button-group">
     <%= link_to "Back to overview", admin_books_path, class: "button" %>
     <%= link_to "View book page", @book, class: "button" %>
-    <%= link_to "Edit this book", edit_admin_book_path(@book), class: "button" %>
+    <%= link_to "Edit this book", edit_admin_book_path(@book), class: "button button--primary" %>
 
     <%= button_to "Destroy this book", [:admin, @book], method: :delete, class: "button button--danger", data: { turbo_confirm: "Are you sure you wish to destroy this book?" } %>
   </div>

@@ -1,0 +1,29 @@
+@use "../variables" as *;
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: $margin;
+}
+
+.tile {
+  display: block;
+  background: var(--bg-content);
+  border-radius: $border-radius;
+  padding: $margin;
+  text-decoration: none;
+  word-wrap: break-word;
+
+  &--disabled {
+    background: var(--bg-standout);
+    outline: 2px solid $red;
+  }
+
+  &:hover {
+    background: var(--bg-content--hover);
+  }
+
+  img {
+    border-radius: $border-radius;
+  }
+}

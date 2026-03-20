@@ -1,40 +1,5 @@
-<div id="<%= dom_id source %>">
+<%= link_to [:admin, source], class: "tile #{"tile--disabled" if source.disabled?}" do %>
   <%= image_tag rails_public_blob_url(source.logo.variant(:medium)) if source.logo.attached? %>
 
-  <%= tag.strong "Disabled", class: "color-red" if source.disabled? %>
-
-  <p>
-    <strong>Name:</strong>
-    <%= source.name %>
-  </p>
-
-  <p>
-    <strong>Slug:</strong>
-    <%= source.slug %>
-  </p>
-
-  <p>
-    <strong>Base url:</strong>
-    <%= source.base_url %>
-  </p>
-
-  <p>
-    <strong>Shipping cost:</strong>
-    <%= source.shipping_cost %>
-  </p>
-
-  <p>
-    <strong>Shipping currency:</strong>
-    <%= source.shipping_cost_currency %>
-  </p>
-
-  <p>
-    <strong>Shipping cost free from price:</strong>
-    <%= source.shipping_cost_free_from_price %>
-  </p>
-
-  <p>
-    <strong>Shipping cost free from quantity:</strong>
-    <%= source.shipping_cost_free_from_quantity %>
-  </p>
-</div>
+  <div><strong><%= source.name %></strong></div>
+<% end %>

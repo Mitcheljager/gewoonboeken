@@ -1,10 +1,47 @@
 <%= render "admin/layout", heading: "Source #{@source.name}" do %>
-  <%= render @source %>
+  <h2 class="text-transform-none"><%= @source.name %></h2>
 
-  <div>
-    <%= link_to "Edit this source", edit_admin_source_path(@source) %> |
-    <%= link_to "Back to sources", admin_sources_path %>
+  <p>
+    <strong>Slug:</strong>
+    <%= @source.slug %>
+  </p>
 
-    <%= button_to "Destroy this source", [:admin, @source], method: :delete %>
+  <p>
+    <strong>Base url:</strong>
+    <%= @source.base_url %>
+  </p>
+
+  <hr>
+
+  <div class="button-group">
+    <%= link_to "Back to sources", admin_sources_path, class: "button" %>
+    <%= link_to "Edit this source", edit_admin_source_path(@source), class: "button button--primary" %>
   </div>
+
+  <hr>
+
+  <%= image_tag rails_public_blob_url(@source.logo.variant(:medium)) if @source.logo.attached? %>
+
+  <%= tag.strong "Disabled", class: "color-red" if @source.disabled? %>
+
+
+  <p>
+    <strong>Shipping cost:</strong>
+    <%= @source.shipping_cost %>
+  </p>
+
+  <p>
+    <strong>Shipping currency:</strong>
+    <%= @source.shipping_cost_currency %>
+  </p>
+
+  <p>
+    <strong>Shipping cost free from price:</strong>
+    <%= @source.shipping_cost_free_from_price %>
+  </p>
+
+  <p>
+    <strong>Shipping cost free from quantity:</strong>
+    <%= @source.shipping_cost_free_from_quantity %>
+  </p>
 <% end %>
