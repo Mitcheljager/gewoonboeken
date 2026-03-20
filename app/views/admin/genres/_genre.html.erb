@@ -20,8 +20,12 @@
   </p>
 
   <% genre.subgenres.each do |genre| %>
-    <div style="padding-left: 2rem">
-      <%= render genre %>
-    </div>
+    <strong>Subgenres:</strong>
+
+    <ul>
+      <li>
+        <%= render genre %>
+      </li>
+    </ul>
   <% end %>
 </div>

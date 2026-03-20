@@ -7,9 +7,8 @@
 
   <div id="authors">
     <% @authors.each do |author| %>
-      <%= render author %>
       <p>
-        <%= link_to "Show this author", [:admin, author] %>
+        <%= link_to "#{author.name} (#{author.books.size})", [:admin, author] %>
       </p>
     <% end %>
   </div>
