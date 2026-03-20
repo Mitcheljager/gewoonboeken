@@ -2,8 +2,12 @@
 
 .tiles {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(var(--size, 150px), 1fr));
   gap: $margin;
+
+  &--large {
+    --size: 250px;
+  }
 }
 
 .tile {
@@ -25,5 +29,13 @@
 
   img {
     border-radius: $border-radius;
+  }
+
+  .cover {
+    max-width: 5rem;
+  }
+
+  .cover__empty {
+    background: var(--bg-content-alt);
   }
 }
