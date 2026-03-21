@@ -11,7 +11,7 @@ def scrape_bruna(isbn, title)
 
   return { url: nil, available: false } if url.blank? || !url.include?("/boeken/") || document.blank?
 
-  price = document.at_css(".price-block .colored")&.gsub(".-", "")&.gsub(",-", "")&.text&.strip || 0
+  price = document.at_css(".price-block .colored")&.text&.gsub(".-", "")&.gsub(",-", "")&.strip || 0
   description = document.at_css(".description .line-clamp-8")&.text&.split("Veelgestelde vragen")&.first&.strip
   number_of_pages_label = document.at_css(".product-meta-description div:nth-child(3)")
   number_of_pages = number_of_pages_label&.text&.strip
