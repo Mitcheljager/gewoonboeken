@@ -9,9 +9,9 @@ def get_goodreads_data(isbn)
   document = get_document(goodreads_search_url)
 
   # Goodreads data is available in a JSON object from Nextjs, but it's not super easy to read
-  json_element = document.at_css("#__NEXT_DATA__")
+  json_element = document&.at_css("#__NEXT_DATA__")
 
-  if json_element.blank?
+  if json_element&.blank?
     puts "No Goodreads page was found for #{isbn}"
     return nil
   end
