@@ -28,7 +28,7 @@ def scrape_bol_partners(isbn)
 
   return { url:, available: false } if item.nil?
 
-  price = item.at_css(".text-promo-text-high").text.tr(",", ".").strip
+  price = item.at_css(".text-promo-text-high").text.tr(",", ".").gsub(".-", "").strip
   price_includes_shipping = item.text.include?("inclusief verzendkosten")
   condition = item.text.include?("Tweedehands") ? :used : :new
 
