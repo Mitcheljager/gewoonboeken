@@ -9,6 +9,8 @@ def scrape_bol_partners(isbn)
   # Replace /p/ in the url with /prijsoverzicht/, this gets us to the partners list
   url = listing&.url&.sub("/p/", "/prijsoverzicht/")
 
+  puts url
+
   if url.blank?
     puts "Bol.com Partners had no matching URL for Bol.com listing"
 
@@ -21,12 +23,12 @@ def scrape_bol_partners(isbn)
 
   return { url: nil, available: false } if document.nil?
 
-  item = document.at_css("#offers .media")
-  item = document.css("#offers .media")[1] if item&.text&.include?("Bol")
+  item = document.at_css("[data-testid='offer-compare-item']")
+  item = document.css("[data-testid='offer-compare-item']")[1] if item&.text&.include?("Bol")
 
   return { url:, available: false } if item.nil?
 
-  price = item.at_css(".product-prices__bol-price").text.tr(",", ".").strip
+  price = item.at_css(".text-promo-text-high").text.tr(",", ".").strip
   price_includes_shipping = item.text.include?("inclusief verzendkosten")
   condition = item.text.include?("Tweedehands") ? :used : :new
 
