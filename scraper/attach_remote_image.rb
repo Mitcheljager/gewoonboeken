@@ -44,4 +44,6 @@ def attach_remote_image(book, url)
   end
 
   response = nil
+rescue => error
+  puts error
 end
