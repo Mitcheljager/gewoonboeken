@@ -4,7 +4,7 @@ class Book < ApplicationRecord
 
   if ENV["BONSAI_URL"]
     include Elasticsearch::Model
-    include Elasticsearch::Model::Callbacks
+    # include Elasticsearch::Model::Callbacks
 
     settings index: { number_of_shards: 1 }
   end
