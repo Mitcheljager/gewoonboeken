@@ -4,7 +4,7 @@ require "httparty"
 
 def get_claude_description(book)
   begin
-    descriptions = book.listings.pluck(:description).reject(&:blank?).uniq
+    descriptions = book.listings.pluck(:description).reject(&:blank?).reject { |d| ["AI gegenereerd", "met behulp van AI"].any? { |phrase| d.include?(phrase) } }.uniq
     if descriptions.none?
       puts "No descriptions for ISBN #{book.isbn} were found"
       return
