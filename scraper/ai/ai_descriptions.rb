@@ -2,8 +2,6 @@ require_relative "../../config/environment"
 require_relative "../helpers/log_time"
 require "httparty"
 
-
-
 def get_claude_description(book)
   begin
     descriptions = book.listings.pluck(:description).reject(&:blank?).uniq
