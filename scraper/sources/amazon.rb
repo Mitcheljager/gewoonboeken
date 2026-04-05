@@ -30,7 +30,7 @@ def scrape_amazon(isbn)
 
     return { url: nil, available: false } unless url.include?("/dp/")
 
-    fulfiller = document.css("[offer-display-feature-name='desktop-fulfiller-info'] .offer-display-feature-text").first
+    fulfiller = document.css("#offer-display-features .offer-display-feature-text-message").first
     is_amazon = fulfiller&.text&.strip == "Amazon"
 
     return { url:, available: false } if !is_amazon
