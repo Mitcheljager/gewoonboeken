@@ -24,7 +24,7 @@ def scrape_bol_partners(isbn)
   return { url: nil, available: false } if document.nil?
 
   item = document.at_css("[data-testid='offer-compare-item']")
-  item = document.css("[data-testid='offer-compare-item']")[1] if item&.text&.include?("Bol")
+  item = document.css("[data-testid='offer-compare-item']")[1] if item&.text&.downcase&.include?("bol")
 
   return { url:, available: false } if item.nil?
 
