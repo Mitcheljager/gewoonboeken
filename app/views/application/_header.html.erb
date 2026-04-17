@@ -1,8 +1,12 @@
 <header class="header">
   <div class="header__content">
     <%= link_to root_path, class: "header__root", aria: { label: "GewoonBoeken.nl" } do %>
-      <%= inline_svg_tag "images/logo.svg", height: 50, width: 176, class: "header__logo header__logo--desktop" %>
-      <%= inline_svg_tag "images/logo-mark.svg", height: 50, width: 50, class: "header__logo header__logo--mobile" %>
+      <%= inline_svg_tag "images/logo-mark.svg", height: 50, width: 50, class: "header__logo" %>
+
+      <div class="header__text">
+        <em>Gewoon</em>
+        Boeken
+      </div>
     <% end %>
 
     <%= render "search" %>

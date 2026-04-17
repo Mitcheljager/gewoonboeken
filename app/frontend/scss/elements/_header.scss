@@ -40,9 +40,10 @@
 }
 
 .header__root {
-  display: block;
+  display: flex;
   margin-right: auto;
   text-align: left;
+  text-decoration: none;;
   color: var(--text-color-base);
 
   @include hover_stack {
@@ -67,6 +68,23 @@
     @include breakpoint(mobile) {
       display: block;
     }
+  }
+}
+
+.header__text {
+  display: none;
+  margin: -0.05em 0 0 0.2em;
+  line-height: 0.85;
+  font-size: 2rem;
+  font-family: $font-stack-bold;
+
+  @include breakpoint(mobile) {
+    display: block;
+  }
+
+  em {
+    display: block;
+    font-family: $font-stack-serif;
   }
 }
 
