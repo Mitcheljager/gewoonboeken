@@ -14,11 +14,7 @@
     <link rel="icon" href="/favicon.svg" type="image/svg">
     <link rel="apple-touch-icon" href="/favicon.png">
 
-    <link rel="preload"
-      href="<%= vite_asset_url "fonts.scss" %>"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'" /> <!-- https://web.dev/defer-non-critical-css/#optimize -->
-    <noscript><%= vite_stylesheet_tag "fonts.scss" %></noscript>
+    <%= render "fonts" %>
 
     <%= vite_client_tag %>
     <%= vite_typescript_tag "application" %>
