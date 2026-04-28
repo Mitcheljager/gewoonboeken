@@ -195,7 +195,7 @@ if isbn.present?
   run_all_scrapers(isbn, sources_to_run)
 else
   hours_ago_time = hours_ago.present? ? Time.now - hours_ago.hours : nil
-  books = hours_ago_time.present? ? Book.where('last_scrape_finished_at < ? OR last_scrape_finished_at IS NULL', hours_ago_time) : Book.all
+  books = hours_ago_time.present? ? Book.where('last_scrape_finished_at < ? OR last_scrape_finished_at IS NULL OR hotness > 50', hours_ago_time) : Book.all
 
   books.each_with_index do |book, index|
     puts "-----------------------------------------------------"
