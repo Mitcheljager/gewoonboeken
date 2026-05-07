@@ -13,8 +13,7 @@
 }
 
 .summary__value {
-  display: flex;
-  flex-wrap: wrap;
+  gap: 0.2em;
   font-size: $font-size-large;
   font-family: $font-stack-bold;
   line-height: 1.5rem;
@@ -22,6 +21,7 @@
   a {
     color: inherit;
     text-decoration: none;
+    margin-right: -0.2em;
 
     @include hover-stack {
       color: inherit;

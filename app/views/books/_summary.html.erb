@@ -15,7 +15,7 @@
     <div class="summary__value" aria-labelledby="genres">
       <% @book.genres.each_with_index do |genre, index| %>
         <%= link_to genre.name, genre_path(genre), class: "genre" %>
-        <%= tag.span ",&nbsp".html_safe if index + 1 < @book.genres.size %>
+        <%= ",&#32;".html_safe if index + 1 < @book.genres.size %>
       <% end %>
     </div>
   <% end %>
