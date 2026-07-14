@@ -38,12 +38,11 @@ for page in 1..10 do
     next if node.include?("Gesponsord")
     next if node.include?("Ebook") # Specifically Ebook, not e-book, as that would include the other variant sections
 
-    # Find any 13 digit code, presumably the ISBN
-    match = node.to_s.match(/\b\d{13}\b/)
-    next unless match.present?
+    isbn_match = node.to_s.match(/\b\d{13}\b/)
+    next unless isbn_match.present?
 
     score = [200 - index * 3, 1].max
-    isbn_list[match[0]] += score
+    isbn_list[isbn_match[0]] += score
 
     index += 1
   end
@@ -130,7 +129,6 @@ end
 # entry, or because the book was an ebook.
 isbn_list.reject! { |isbn| SkippableISBN.exists?(isbn: isbn) }
 
-# Process all indexed ISBNs, skipping any that are invalid
 isbn_list.each_with_index do |(isbn, score), index|
   puts "\e[44m #{index + 1} out of #{isbn_list.count} \e[0m"
 
@@ -148,7 +146,6 @@ isbn_list.each_with_index do |(isbn, score), index|
     puts error.backtrace.join("\n") if error.class.to_s != "RuntimeError"
   end
 
-  # Reset book and run Garbage collector for every 20 indexes
   book = nil
 
   if index % 20 == 0
