@@ -38,14 +38,12 @@ subpaths.each do |subpath|
       document.css(".product-item__content, #mainContent .flex-row .grid .min-w-none").each do |node|
         next if node.include?("Ebook") # Specifically Ebook, not e-book, as that would include the other variant sections
 
-        # Find any 13 digit code, presumably the ISBN
-        match = node.to_s.match(/\b\d{13}\b/)
-        next unless match.present?
+        isbn_match = node.to_s.match(/\b\d{13}\b/)
+        next unless isbn_match.present?
 
-        isbn_list << match[0]
+        isbn_list << isbn_match[0]
       end
 
-      # Set document to nil so we garbage collect it later
       document = nil
     end
   end
@@ -108,13 +106,13 @@ subpaths.each do |subpath|
     document.css(".search-result").each do |node|
       # Overview pages might include a variety of formats, including ebooks, dvds, games, and more.
       next unless node.text.include?("Paperback") || node.text.include?("Hardback") # They call it "hardback / gevonden" rather than "hardcover"
-      next unless node.text.include?("Engels") || node.text.include?("Nederlands") # Donner offers books in many languages. We only care for Dutch and English.
+      next unless node.text.include?("Engels") || node.text.include?("Nederlands")
 
       path = node.at_css("a")&.attribute("href")&.value
-      next if path.blank? # Not sure if it can be blank, but who knows
+      next if path.blank?
 
       isbn = node.attribute("data-ean").value
-      next if isbn.blank? # Same here, maybe it can be blank, no clue
+      next if isbn.blank?
 
       index_listing_url("Donner", isbn, base_url + path)
 
@@ -134,7 +132,6 @@ end
 # entry, or because the book was an ebook.
 isbn_list.reject! { |isbn| SkippableISBN.exists?(isbn: isbn) }
 
-# Process all indexed ISBNs, skipping any that are invalid
 batch_size = 20
 total_index = 0
 isbn_list.uniq.each_slice(batch_size).with_index do |batch, batch_index|
@@ -152,12 +149,11 @@ isbn_list.uniq.each_slice(batch_size).with_index do |batch, batch_index|
         puts "Book with #{isbn} failed to be indexed from get_various_books.rb"
         puts error
 
-        # Show full backtrace but skip for RuntimeErrors, as those would have been manually triggered "raise" errors,
+        # Show full backtrace but skip for RuntimeErrors, as those would have been manually triggered "raise" errors
         # which we can safely(?) ignore.
         puts error.backtrace.join("\n") if error.class.to_s != "RuntimeError"
       ensure
         total_index += 1
-        # Reset for garbage collection later
         book = nil
       end
     end
