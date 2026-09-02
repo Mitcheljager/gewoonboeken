@@ -23,7 +23,6 @@ def get_goodreads_data(isbn)
   genres = extract_book_genres(json["props"]["pageProps"]["apolloState"])
   title = extract_book_title(json["props"]["pageProps"]["apolloState"])
 
-  # Format can be nil in some cases
   is_ebook = json_details["format"]&.include?("Kindle") || json_details["format"]&.include?("ebook") || false
   language_text = json_details["language"]&.[]("name")
   publication_time = json_details["publicationTime"]
@@ -91,8 +90,6 @@ def extract_book_genres(json)
   genres
 end
 
-# The title is present in the same object as the genres. We could be clever and extract that logic,
-# or we just repeat it, because why not.
 def extract_book_title(json)
   json.each do |key, value|
     next unless key.start_with?("Book:")
