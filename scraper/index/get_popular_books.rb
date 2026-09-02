@@ -78,7 +78,7 @@ index = 0
 
 # ! Bruna.nl - 100 entries
 document = get_document("https://www.bruna.nl/boeken-top-100")
-document.css(".ankeiler-wrapper [data-test-id='titleAndSubtitle'] a").each do |node|
+document&.css(".ankeiler-wrapper [data-test-id='titleAndSubtitle'] a").each do |node|
   # The only place the isbn is present on these overview pages is in the URLs of each book
   url = node.attribute("href").value
 
