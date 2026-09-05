@@ -5,27 +5,35 @@ def scrape_paagman(isbn)
 
   url = listing&.url
 
-  if listing&.url
+  begin
+    throw unless listing&.url
+
     puts "Running previously fetched url For Paagman for: " + url
 
     document = get_document(url)
-  else
+
+    throw if document.nil?
+  rescue
     puts "Running new url for Paagman"
 
-    # Paagman automatically redirects when searching for an isbn if that isbn exists
-    url, document = get_document("https://www.paagman.nl/zoek?term=#{isbn}", return_url: true)
+    search_document = get_document("https://www.paagman.nl/zoek?term=#{isbn}", return_url: true)
 
-    # No search results were returned for this isbn
-    if document.nil? || document.include?("geen resultaten")
+    if search_document.nil? || search_document.include?("Geen zoekresultaten")
       puts "No search results for #{isbn}"
       return { url: nil, available: false }
     end
+
+    search_item = search_document.at_css("a[href*=#{listing.book.isbn}")
+    document = get_document(search_item.attribute("href").value)
   end
 
-  description = document.at_css(".description-original-2")&.text&.strip
-  number_of_pages = document.at_css("li:contains('Bladzijden:')")&.text&.gsub("Bladzijden:", "")&.strip
-  price = document.at_css(".priceFor")&.text&.gsub("€", "")&.gsub(",", ".")&.strip
-  available = document.text.include?("OP VOORRAAD")
+  json_element = document.at_css("script[type='application/ld+json']")
+  json = JSON.parse(json_element.text)
 
-  { url:, price:, description:, number_of_pages:, condition: :new, available: available }
+  description = json["description"]
+  price = json["offers"][0].price
+  available = json["offers"][0]["availability"] == "InStock"
+  number_of_pages = document.at_css("div:contains('Bladzijden:')")&.text&.gsub("Bladzijden:", "")&.strip
+
+  { url:, price:, description:, number_of_pages:, condition: :new, available: }
 end
